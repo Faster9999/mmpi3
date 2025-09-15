@@ -12,7 +12,7 @@ let email = '';
 let phone = '';
 let city = '';
 let whatsappTelegram = '';
-let currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
+let currentPageLang;
 
 console.log('Начало загрузки script.js');
 

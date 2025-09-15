@@ -1,4 +1,4 @@
-let currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
+let currentPageLang;
 
 // Функция установки языка
 function setLanguage(lang) {
@@ -136,28 +136,39 @@ function changeLanguage() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing main.js');
 
-    // Инициализация языка
     const langSwitch = document.getElementById('langSwitch');
-    const currentPageLang = window.location.pathname.split('/').pop().split('-')[1]?.split('.')[0] || 'ru';
 
-    // Устанавливаем язык страницы, если он отличается от сохранённого, но не делаем редирект
+    const fileName = window.location.pathname.split('/').pop();
+
+    if (fileName === 'index.html') {
+        currentPageLang = 'tr';
+    } else if (fileName === 'index-en.html') {
+        currentPageLang = 'en';
+    } else if (fileName === 'index-ru.html') {
+        currentPageLang = 'ru';
+    } else {
+        currentPageLang = 'ru'; // дефолт
+    }
+
     setLanguage(currentPageLang);
 
     // Обработчик переключения языка
-    langSwitch.querySelectorAll('a[data-lang]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const newLang = link.getAttribute('data-lang');
-            localStorage.setItem('selectedLanguage', newLang);
-            setLanguage(newLang);
-            window.location.href = link.getAttribute('href');
+    if (langSwitch) {
+        langSwitch.querySelectorAll('a[data-lang]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const newLang = link.getAttribute('data-lang');
+                localStorage.setItem('selectedLanguage', newLang);
+                setLanguage(newLang);
+                window.location.href = link.getAttribute('href');
+            });
+            if (link.getAttribute('data-lang') === currentLanguage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
         });
-        if (link.getAttribute('data-lang') === currentLanguage) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
+    }
 
     // Мобильное меню
     const menuToggle = document.querySelector('.menu-toggle');
