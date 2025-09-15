@@ -12,7 +12,7 @@ let email = '';
 let phone = '';
 let city = '';
 let whatsappTelegram = '';
-let currentPageLang;
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
 
 console.log('Начало загрузки script.js');
 
@@ -316,8 +316,7 @@ window.autoCompleteTest = function () {
         return;
     }
 
-    // Устанавливаем личные данные
-    gender = genderSelect.value.toLowerCase().includes('жен') ? 1 : 0;
+    gender = parseInt(genderSelect.value === 'kadın' ? 1 : 0) || 0;
     birthDate = birthDateInput.value;
     age = birthDate ? calculateAge(birthDate) : 25;
     education = educationSelect.value || 'vysshee';
@@ -329,12 +328,7 @@ window.autoCompleteTest = function () {
     city = cityInput.value || 'Не указано';
     whatsappTelegram = whatsappTelegramInput.value || 'Не указано';
 
-    // Заполняем все ответы "Да" (1)
-    answers = new Array(566).fill(1);
-
-    // Переходим к последнему вопросу, чтобы показать кнопку "Результат"
-    currentQuestionIndex = answers.length - 1;
-
+    currentQuestionIndex = 565;
     const intro = document.getElementById('intro');
     const questionContainer = document.getElementById('questionContainer');
     if (intro && questionContainer) {
