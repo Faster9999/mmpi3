@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rönesans Danışmanlık - Personality Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Хедер */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(47, 47, 47, 0.7);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(47, 47, 47, 0.85);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            max-width: 100%;
+        }
+
+        .logo {
+            color: #fff;
+            font-family: 'Georgia', serif;
+            font-weight: 800;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #e4e4e4;
+        }
+
+        .login-button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #2c66f9;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 6px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(44, 102, 249, 0.4);
+        }
+
+        .login-button:hover {
+            background: #1a3fc1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(26, 63, 193, 0.4);
+        }
+
+        .door-icon {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-center a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            line-height: 1.6;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-center a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            transition: width 0.3s ease;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .nav-center a:hover::after {
+            width: 100%;
+        }
+
+        .nav-center a:hover {
+            color: linear-gradient(90deg, #2c66f9, #1a3fc1);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+        }
+
+        .lang-switch a {
+            color: #c6d6ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid linear-gradient(90deg, #2c66f9, #1a3fc1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 111, 97, 0.1);
+        }
+
+        .lang-switch a.active {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            border-radius: 3px;
+        }
+
+        .lang-switch a:hover {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Секции с анимацией */
+        .section {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            will-change: opacity, transform;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Герой */
+        .section .hero {
+            position: relative;
+            height: 100vh;
+            background: #1A2524 url('p000029406.jpg') no-repeat center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .section .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .section .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            color: #fff;
+            text-align: left;
+        }
+
+        .section .hero {
+            background-attachment: fixed;
+            /* Фиксируем фон для параллакса */
+            background-position: center 20%;
+            /* Смещаем начальную позицию для эффекта */
+            animation: parallaxMove 15s infinite alternate ease-in-out;
+            /* Анимация движения */
+        }
+
+        @keyframes parallaxMove {
+            0% {
+                background-position: center 20%;
+            }
+
+            100% {
+                background-position: center 80%;
+            }
+        }
+
+        .section .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+        }
+
+        .section .hero-content .hero-btn {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            padding: 16px 36px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(44, 102, 249, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .section .hero-content .hero-btn:hover {
+            background: linear-gradient(90deg, #1a3fc1, #2c66f9);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(44, 102, 249, 0.5);
+        }
+
+        .section .hero-content .hero-btn:active {
+            background: linear-gradient(90deg, #4B0082, #2c66f9);
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(75, 0, 130, 0.4);
+        }
+
+        /* Остальные секции */
+        .about-approach {
+            background-color: #efefef;
+            padding: 80px 20px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .approach-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .approach-text {
+            flex: 1 1 50%;
+        }
+
+        .approach-text h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            color: #111;
+        }
+
+        .approach-text .underline {
+            width: 60px;
+            height: 4px;
+            background-color: #444;
+            margin-bottom: 24px;
+            border-radius: 2px;
+        }
+
+        .approach-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #444;
+            max-width: 90%;
+        }
+
+        .approach-image {
+            flex: 1 1 45%;
+        }
+
+        .approach-image .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .approach-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .approach-image .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            z-index: 1;
+            pointer-events: none;
+            transition: background 0.3s ease;
+        }
+
+        .approach-image .image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .approach-image .image-wrapper:hover .overlay {
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .advantages {
+            padding: 80px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .advantages .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .advantages h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .advantages .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .advantages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .advantage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .check-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .advantage-text h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .advantage-text p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .blue-check svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .feature h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 0.95rem;
+            color: #ddd;
+            line-height: 1.4;
+        }
+
+        .mmpi-process {
+            background-color: #f7f7f7;
+            padding: 100px 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mmpi-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 80px;
+            color: #111;
+        }
+
+        .mmpi-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 60px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mmpi-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            flex: 1 1 45%;
+            min-width: 320px;
+        }
+
+        .mmpi-icon.large {
+            width: 80px;
+            height: 80px;
+            padding: 20px;
+            background-color: #e3e3e3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mmpi-text.expanded {
+            max-width: 100%;
+        }
+
+        .mmpi-text.expanded h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #111;
+        }
+
+        .mmpi-text.expanded p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .testimonials {
+            background: #f2f2f2;
+            padding: 100px 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+
+        .testimonial-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+
+        .testimonial-card {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            width: 400px;
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        .testimonial-card img {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-info h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .testimonial-info .job {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-info .job span {
+            color: #f45b5b;
+        }
+
+        .testimonial-info .text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 28px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .arrow.left {
+            left: -20px;
+        }
+
+        .arrow.right {
+            right: -20px;
+        }
+
+        .contact-section {
+            padding: 60px 20px;
+            background-color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .contact-info a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 18px;
+            margin-top: 1rem;
+        }
+
+        .social-icons a svg {
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover svg {
+            transform: scale(1.1);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .contact-form button {
+            background-color: #1e5fff;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #144ccc;
+        }
+
+        .site-footer {
+            background: rgb(17, 17, 17);
+            color: #fff;
+            padding: 3rem 1rem;
+            font-family: sans-serif;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            flex: 1 1 200px;
+            max-width: 240px;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-links {
+            display: flex;
+            flex: 2 1 500px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-col a {
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: #aaa;
+        }
+
+        .footer-contact {
+            flex: 1 1 200px;
+            max-width: 250px;
+        }
+
+        .footer-contact p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .footer-contact a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 18px;
+            margin-top: 1rem;
+        }
+
+        .footer-social a svg {
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            transform: scale(1.1);
+        }
+
+        /* Адаптив */
+        @media(max-width:768px) {
+            body {
+                padding-top: 116px;
+                /* на мобильных шапка выше, отступ увеличиваем */
+            }
+            .section .hero {
+                background-attachment: scroll;
+                /* Отключаем параллакс на мобильных для производительности */
+                animation: none;
+                /* Отключаем анимацию на мобильных */
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .footer-contact,
+            .footer-brand {
+                max-width: 100%;
+            }
+
+            .mmpi-step {
+                flex: 1 1 100%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section .hero-content p {
+                font-size: 1rem;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 15px;
+            }
+
+            .nav-center,
+            .lang-switch {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .nav-center {
+                flex-direction: column;
+                gap: 15px;
+                display: none;
+            }
+
+            .nav-center.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: #fff;
+                background: none;
+                border: none;
+                cursor: pointer;
+                position: absolute;
+                right: 25px;
+                top: 15px;
+            }
+
+            .logo {
+                height: 35px;
+            }
+
+            .approach-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .approach-text h2 {
+                font-size: 26px;
+            }
+
+            .approach-text p {
+                font-size: 16px;
+            }
+
+            .approach-text,
+            .approach-image {
+                flex: 1 1 100%;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <button class="menu-toggle">☰</button>
+        <div class="header-container">
+            <div class="logo">Rönesans Danışmanlık</div>
+            <nav class="nav-center">
+                <a href="index-en.html">Home</a>
+                <a href="#test">About Test</a>
+                <a href="#about">About Me</a>
+                <a href="#blog">Blog</a>
+            </nav>
+            <div class="lang-switch" id="langSwitch">
+                <a href="index-en.html" data-lang="en" class="active">Eng</a>
+                <a href="index-ru.html" data-lang="ru">Рус</a>
+                <a href="index-tr.html" data-lang="tr">Türkçe</a>
+                <a href="/login" class="login-button">
+                    <svg class="door-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M14.5 12a.75.75 0 0 1 .75-.75h4.69l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.75 2.75a.75.75 0 0 1 0 1.06l-2.75 2.75a.75.75 0 1 1-1.06-1.06l1.22-1.22H15.25A.75.75 0 0 1 14.5 12z" />
+                        <path
+                            d="M3 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V4H5v16h8v-2a1 1 0 1 1 2 0v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3z" />
+                    </svg>
+                    Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Discover Who You Really Are — Professional MMPI Personality Analysis.</h1>
+                <p><strong>Deep Psychological Personality Analysis.</strong><br>Based on the world's most accurate MMPI
+                    test — used in intelligence agencies, medicine, and HR. You’ll be analyzed professionally,
+                    confidentially, and without judgment.</p>
+                <a href="mmpi-test-en.html" class="hero-btn">Take Test and Get Analysis</a>
+                <div class="features">
+                    <div class="feature">
+                        <h3>✔ Deep Analysis.</h3>
+                        <p>We use the full MMPI version — one of the most accurate and validated tests in the world.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✔ Personalized Recommendations</h3>
+                        <p>Get a breakdown from a certified psychologist, not just dry numbers.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>✔ Convenient Online Format</h3>
+                        <p>Take the test at home — everything happens online, in a comfortable environment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section about-approach">
+        <div class="container">
+            <div class="approach-content">
+                <div class="approach-text">
+                    <h2>"We Don’t Diagnose — We Help You Understand Yourself"</h2>
+                    <div class="underline"></div>
+                    <p>Our approach is not about labels or medical conclusions. We carefully decode your psychological
+                        profile to help you see your strengths, vulnerabilities, and hidden resources. This is a path to
+                        self-awareness, not a 'diagnosis'.</p>
+                </div>
+                <div class="approach-image">
+                    <div class="image-wrapper">
+                        <div class="overlay"></div>
+                        <img src="/2025-07-03_17h32_10.jpg" alt="Psychologist holding client's hand">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section advantages">
+        <div class="container">
+            <h2>Advantages of MMPI</h2>
+            <p class="subtitle">Why MMPI is not just another online test:</p>
+            <div class="advantages-list">
+                <div class="advantage-item">
+                    <div class="check-icon blue-check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#2d5fff" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <div class="advantage-text">
+                        <h3>Scientifically Proven</h3>
+                        <p>MMPI is one of the most reliable and valid psychological tests, developed in the USA and used
+                            for over 70 years. It’s applied in clinics, research, and selection for intelligence
+                            agencies and major companies worldwide.</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="check-icon blue-check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#2d5fff" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <div class="advantage-text">
+                        <h3>Impossible to Cheat</h3>
+                        <p>The test is designed to reveal true psychological traits, even if someone tries to embellish
+                            answers. With built-in lie, distortion, and insincerity scales, the result shows who you
+                            really are, not who you want to seem.</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="check-icon blue-check">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#2d5fff" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <div class="advantage-text">
+                        <h3>Individual Breakdown</h3>
+                        <p>Your result is analyzed by a certified psychologist, not a robot. You get a clear breakdown
+                            with examples, explanations of personality traits, and practical recommendations for your
+                            life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section mmpi-process">
+        <div class="container">
+            <h2 class="mmpi-title">How Does the MMPI Personality Analysis Work?</h2>
+            <div class="mmpi-steps">
+                <div class="mmpi-step">
+                    <div class="mmpi-icon large">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#111" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M3 10h18M7 10V6a1 1 0 011-1h8a1 1 0 011 1v4m-1 4H8a1 1 0 00-1 1v4h10v-4a1 1 0 00-1-1z" />
+                        </svg>
+                    </div>
+                    <div class="mmpi-text expanded">
+                        <h3>Payment and Test Access</h3>
+                        <p>Click the button, pay for the test, and immediately receive a link to the MMPI test.</p>
+                    </div>
+                </div>
+                <div class="mmpi-step">
+                    <div class="mmpi-icon large">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#111" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div class="mmpi-text expanded">
+                        <h3>Take the Test at Your Convenience</h3>
+                        <p>Answer the questions online. It will take about 40–60 minutes. The key is to be honest and
+                            calm.</p>
+                    </div>
+                </div>
+                <div class="mmpi-step">
+                    <div class="mmpi-icon large">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#111" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4z" />
+                            <path d="M4 20v-2c0-2.21 3.58-4 8-4s8 1.79 8 4v2" />
+                        </svg>
+                    </div>
+                    <div class="mmpi-text expanded">
+                        <h3>We Conduct an Individual Breakdown</h3>
+                        <p>A professional psychologist manually analyzes your answers across key scales and provides
+                            well-founded conclusions.</p>
+                    </div>
+                </div>
+                <div class="mmpi-step">
+                    <div class="mmpi-icon large">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#111" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect>
+                            <polyline points="3 6 12 13 21 6"></polyline>
+                            <path d="M16 16l2 2 4-4" stroke="#2e7d32" />
+                        </svg>
+                    </div>
+                    <div class="mmpi-text expanded">
+                        <h3>You Receive a Report and Personal Feedback</h3>
+                        <p>The psychologist contacts you to explain the results, provide a personal consultation, and
+                            offer recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">People Who Have Already Understood Themselves</h2>
+            <div class="testimonial-carousel">
+                <button class="arrow left" aria-label="back">❮</button>
+                <div class="testimonial-track">
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Daniel Visser">
+                        <div class="testimonial-info">
+                            <h3>Daniel Visser</h3>
+                            <p class="job">Project Manager at <span>Pixels</span></p>
+                            <p class="text">The principal element of Suprematism in painting, as in architecture, is its
+                                liberation from all social or materialist tendencies.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Synthia Smyth">
+                        <div class="testimonial-info">
+                            <h3>Synthia Smyth</h3>
+                            <p class="job">Editor-in-chief at <span>Pixels</span></p>
+                            <p class="text">We were just building stuff 'cause we thought it was cool. Someone is gonna
+                                build this. Someone is gonna build something for everyone.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Lena Koroleva">
+                        <div class="testimonial-info">
+                            <h3>Lena Koroleva</h3>
+                            <p class="job">Psychologist</p>
+                            <p class="text">MMPI helped me understand myself much deeper. The results were unexpected
+                                but very accurate.</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Ivan Petrov">
+                        <div class="testimonial-info">
+                            <h3>Ivan Petrov</h3>
+                            <p class="job">UX Designer</p>
+                            <p class="text">I took the MMPI before a career change. The report gave me great food for
+                                thought. Highly recommend!</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://randomuser.me/api/portraits/men/7.jpg" alt="Alex Mikhailov">
+                        <div class="testimonial-info">
+                            <h3>Alex Mikhailov</h3>
+                            <p class="job">Entrepreneur</p>
+                            <p class="text">Very detailed analysis. Not just numbers — a real understanding of my
+                                personality.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="arrow right" aria-label="forward">❯</button>
+            </div>
+        </div>
+    </section>
+    <section class="section contact-section">
+        <div class="container contact-grid">
+            <div class="contact-info">
+                <h2>Our Contacts</h2>
+                <p>Write to us — we truly love communicating with our clients.</p>
+                <p><strong>+7 123 456 7890</strong></p>
+                <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+                <p>Dudulu St., 22, Turkey</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="X / Twitter" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48ZM33.3482 14L25.9027 22.4686H25.9023L34 34H28.0445L22.5915 26.2348L15.7644 34H14L21.8082 25.1193L14 14H19.9555L25.119 21.3532L31.5838 14H33.3482ZM22.695 24.1101L23.4861 25.2173V25.2177L28.8746 32.7594H31.5847L24.9813 23.5172L24.1902 22.4099L19.1103 15.2997H16.4002L22.695 24.1101Z"
+                                fill="#000000" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100c27.6142 0 50-22.3858 50-50S77.6142 0 50 0 0 22.3858 0 50s22.3858 50 50 50Zm3.431-73.9854c-2.5161.0701-5.171.6758-7.0464 2.4577-1.5488 1.4326-2.329 3.5177-2.5044 5.602-.0534 1.4908-.0458 2.9855-.0382 4.4796.0058 1.1205.0115 2.2407-.0085 3.3587-.6888.005-1.3797.0036-2.0709.0021-.9218-.0019-1.8441-.0038-2.7626.0096 0 .8921.0013 1.7855.0026 2.6797.0026 1.791.0052 3.5853-.0026 5.3799.9185.0134 1.8409.0115 2.7627.0096.6912-.0015 1.382-.0029 2.0708.0021.0155 3.5565.0127 7.1128.0098 10.669-.0036 4.4452-.0072 8.8903.0252 13.3354 1.8903-.0134 3.7765-.0115 5.6633-.0095 1.4152.0014 2.8306.0028 4.2484-.0022.0117-4.0009.0088-7.9986.0058-11.9963-.0029-3.9979-.0058-7.9957.0059-11.9964.9533-.005 1.9067-.0036 2.86-.0021 1.2713.0019 2.5425.0038 3.8137-.0096.396-2.679.7335-5.3814.9198-8.0947-1.2576-.0058-2.5155-.0058-3.7734-.0058-1.2578 0-2.5157 0-3.7734-.0059 0-.4689-.0007-.9378-.0014-1.4066-.0022-1.4063-.0044-2.8123.0131-4.2188.198-1.0834 1.3158-1.9104 2.3992-1.8403h5.1476c.0117-2.8069.0117-5.602 0-8.4089-.6636 0-1.3273-.0007-1.9911-.0014-1.9915-.0022-3.9832-.0044-5.975.0131Z"
+                                fill="#000000" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100ZM25 39.3918C25 31.4558 31.4566 25 39.3918 25H60.6082C68.5442 25 75 31.4566 75 39.3918V60.8028C75 68.738 68.5442 75.1946 60.6082 75.1946H39.3918C31.4558 75.1946 25 68.738 25 60.8028V39.3918ZM36.9883 50.0054C36.9883 42.8847 42.8438 37.0922 50.0397 37.0922C57.2356 37.0922 63.0911 42.8847 63.0911 50.0054C63.0911 57.1252 57.2356 62.9177 50.0397 62.9177C42.843 62.9177 36.9883 57.1252 36.9883 50.0054ZM41.7422 50.0054C41.7422 54.5033 45.4641 58.1638 50.0397 58.1638C54.6153 58.1638 58.3372 54.5041 58.3372 50.0054C58.3372 45.5066 54.6145 41.8469 50.0397 41.8469C45.4641 41.8469 41.7422 45.5066 41.7422 50.0054ZM63.3248 39.6355C65.0208 39.6355 66.3956 38.2606 66.3956 36.5646C66.3956 34.8687 65.0208 33.4938 63.3248 33.4938C61.6288 33.4938 60.2539 34.8687 60.2539 36.5646C60.2539 38.2606 61.6288 39.6355 63.3248 39.6355Z"
+                                fill="#000000" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <form class="contact-form" action="#" method="post">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="/2025-07-03_19h51_38.png" alt="Logo" class="footer-logo" />
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <a href="#">Home</a>
+                    <a href="#">Tour</a>
+                    <a href="#">Catalog</a>
+                    <a href="#">Prices</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Market</a>
+                    <a href="#">Services</a>
+                    <a href="#">Explore</a>
+                    <a href="#">Podcast</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">FAQ</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Contacts</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Partners</a>
+                    <a href="#">GDPR</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <p><strong>+7 123 456 7890</strong></p>
+                <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+                <p>Dudulu St., 22, Turkey</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100c27.6142 0 50-22.3858 50-50S77.6142 0 50 0 0 22.3858 0 50s22.3858 50 50 50Zm3.431-73.9854c-2.5161.0701-5.171.6758-7.0464 2.4577-1.5488 1.4326-2.329 3.5177-2.5044 5.602-.0534 1.4908-.0458 2.9855-.0382 4.4796.0058 1.1205.0115 2.2407-.0085 3.3587-.6888.005-1.3797.0036-2.0709.0021-.9218-.0019-1.8441-.0038-2.7626.0096 0 .8921.0013 1.7855.0026 2.6797.0026 1.791.0052 3.5853-.0026 5.3799.9185.0134 1.8409.0115 2.7627.0096.6912-.0015 1.382-.0029 2.0708.0021.0155 3.5565.0127 7.1128.0098 10.669-.0036 4.4452-.0072 8.8903.0252 13.3354 1.8903-.0134 3.7765-.0115 5.6633-.0095 1.4152.0014 2.8306.0028 4.2484-.0022.0117-4.0009.0088-7.9986.0058-11.9963-.0029-3.9979-.0058-7.9957.0059-11.9964.9533-.005 1.9067-.0036 2.86-.0021 1.2713.0019 2.5425.0038 3.8137-.0096.396-2.679.7335-5.3814.9198-8.0947-1.2576-.0058-2.5155-.0058-3.7734-.0058-1.2578 0-2.5157 0-3.7734-.0059 0-.4689-.0007-.9378-.0014-1.4066-.0022-1.4063-.0044-2.8123.0131-4.2188.198-1.0834 1.3158-1.9104 2.3992-1.8403h5.1476c.0117-2.8069.0117-5.602 0-8.4089-.6636 0-1.3273-.0007-1.9911-.0014-1.9915-.0022-3.9832-.0044-5.975.0131Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="X / Twitter" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48ZM33.3482 14L25.9027 22.4686H25.9023L34 34H28.0445L22.5915 26.2348L15.7644 34H14L21.8082 25.1193L14 14H19.9555L25.119 21.3532L31.5838 14H33.3482ZM22.695 24.1101L23.4861 25.2173V25.2177L28.8746 32.7594H31.5847L24.9813 23.5172L24.1902 22.4099L19.1103 15.2997H16.4002L22.695 24.1101Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100ZM25 39.3918C25 31.4558 31.4566 25 39.3918 25H60.6082C68.5442 25 75 31.4566 75 39.3918V60.8028C75 68.738 68.5442 75.1946 60.6082 75.1946H39.3918C31.4558 75.1946 25 68.738 25 60.8028V39.3918ZM36.9883 50.0054C36.9883 42.8847 42.8438 37.0922 50.0397 37.0922C57.2356 37.0922 63.0911 42.8847 63.0911 50.0054C63.0911 57.1252 57.2356 62.9177 50.0397 62.9177C42.843 62.9177 36.9883 57.1252 36.9883 50.0054ZM41.7422 50.0054C41.7422 54.5033 45.4641 58.1638 50.0397 58.1638C54.6153 58.1638 58.3372 54.5041 58.3372 50.0054C58.3372 45.5066 54.6145 41.8469 50.0397 41.8469C45.4641 41.8469 41.7422 45.5066 41.7422 50.0054ZM63.3248 39.6355C65.0208 39.6355 66.3956 38.2606 66.3956 36.5646C66.3956 34.8687 65.0208 33.4938 63.3248 33.4938C61.6288 33.4938 60.2539 34.8687 60.2539 36.5646C60.2539 38.2606 61.6288 39.6355 63.3248 39.6355Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+    <script src="testimonials-carousel.js"></script>
+</body>
+
+</html>

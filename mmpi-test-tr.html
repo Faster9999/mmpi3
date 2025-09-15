@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMPI Testi (566 Soru)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <button class="menu-toggle">☰</button>
+        <div class="header-container">
+            <div class="logo">Rönesans Danışmanlık</div>
+            <nav class="nav-center">
+                <a href="index-tr.html">Ana Sayfa</a>
+                <a href="index-tr.html#test">Test Hakkında</a>
+                <a href="index-tr.html#about">Hakkımda</a>
+                <a href="index-tr.html#blog">Blog</a>
+            </nav>
+            <div class="lang-switch" id="langSwitch">
+                <a href="mmpi-test-tr.html" data-lang="tr" class="active">Türkçe</a>
+                <a href="mmpi-test-en.html" data-lang="en">Eng</a>
+                <a href="mmpi-test-ru.html" data-lang="ru">Рус</a>
+                <a href="/login" class="login-button">
+                    <svg class="door-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M14.5 12a.75.75 0 0 1 .75-.75h4.69l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.75 2.75a.75.75 0 0 1 0 1.06l-2.75 2.75a.75.75 0 1 1-1.06-1.06l1.22-1.22H15.25A.75.75 0 0 1 14.5 12z" />
+                        <path
+                            d="M3 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V4H5v16h8v-2a1 1 0 1 1 2 0v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3z" />
+                    </svg>
+                    Giriş
+                </a>
+            </div>
+        </div>
+    </header>
+    <div id="intro" class="container">
+        <div class="test-form">
+            <h1 class="form-title">Teste Başla</h1>
+            <div class="form-group">
+                <label for="birthDate" id="birthDateLabel"></label>
+                <input type="text" id="birthDate" name="birthDate" placeholder="gg.mm.yyyy">
+                <div class="error" id="birthDateError"></div>
+            </div>
+            <div class="form-group">
+                <span class="error" id="genderError"></span>
+                <label for="gender">Cinsiyet *</label>
+                <select id="gender" name="gender">
+                    <option value="0">${translations[currentLanguage].male}</option>
+                    <option value="1">${translations[currentLanguage].female}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <span class="error" id="surnameError"></span>
+                <label for="surname">Soyadı *</label>
+                <input type="text" id="surname" required>
+            </div>
+            <div class="form-group">
+                <span class="error" id="nameError"></span>
+                <label for="name">İsim *</label>
+                <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+                <span class="error" id="patronymicError"></span>
+                <label for="patronymic">Baba Adı</label>
+                <input type="text" id="patronymic">
+            </div>
+            <div class="form-group">
+                <span class="error" id="emailError"></span>
+                <label for="email">E-posta *</label>
+                <input type="email" id="email" placeholder="Sonuçlar bu adrese gönderilecektir" required>
+            </div>
+            <div class="form-group">
+                <span class="error" id="phoneError"></span>
+                <label for="phone">Telefon *</label>
+                <input type="tel" id="phone" placeholder="Örnek: +375 29 111-11-11" required>
+            </div>
+            <div class="form-group">
+                <span class="error" id="cityError"></span>
+                <label for="city">Şehir</label>
+                <input type="text" id="city">
+            </div>
+            <div class="form-group">
+                <span class="error" id="educationError"></span>
+                <label for="education">Eğitim *</label>
+                <select id="education" required>
+                    <option value="shkolnoe">Lise</option>
+                    <option value="srednee_specialnoe">Orta Özel</option>
+                    <option value="vysshee">Yüksek</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <span class="error" id="whatsappTelegramError"></span>
+                <label for="whatsappTelegram">WhatsApp/Telegram</label>
+                <input type="text" id="whatsappTelegram" placeholder="Numara veya @kullanıcıadı girin">
+            </div>
+            <div class="form-group consent-group">
+                <span class="error" id="consentError"></span>
+                <input type="checkbox" id="consent" required>
+                <label for="consent" class="consent-label">Kişisel verilerin işlenmesine izin veriyorum</label>
+            </div>
+            <div class="form-actions">
+                <button onclick="autoCompleteTest()" class="btn secondary">Otomatik Doldur ve Bitir</button>
+                <button onclick="startTest()" class="btn primary">Teste Başla</button>
+            </div>
+        </div>
+    </div>
+    <div id="questionContainer" class="container" style="display: none; text-align: center; position: relative;">
+        <div id="prevArrow" class="nav-arrow" style="left: 10px;">«</div>
+        <h2 id="questionText"
+            style="font-size: 1.5em; color: #333; padding: 20px; background: #f9f9f9; border-radius: 10px;"></h2>
+        <div id="answerOptions"
+            style="margin: 20px 0; display: flex; flex-direction: column; align-items: center; gap: 10px;"></div>
+        <div class="progress-line-wrapper">
+            <div class="progress-line">
+                <div class="progress-indicator" id="progressIndicator"></div>
+            </div>
+            <div class="progress-name">Anonim</div>
+        </div>
+        <div id="nextArrow" class="nav-arrow" style="right: 10px;">»</div>
+        <p id="progress" style="font-size: 1em; color: #666;">Soru <span id="currentQuestion">1</span> / 566</p>
+        <button id="showResultBtn" onclick="window.submitTest()"
+            style="display: none; padding: 10px 20px; font-size: 1em; background: #2196F3; color: white; border: none; border-radius: 5px;">
+            Sonucu Göster
+        </button>
+    </div>
+    <div id="resultContainer" class="container" style="display: none;">
+        <h2 id="resultTitle">Sonuçlar</h2>
+        <canvas id="mmpiChart" style="max-width: 100%; height: 300px;"></canvas>
+        <p id="resultText"></p>
+        <div id="resultTable" class="result-section"></div>
+    </div>
+    <script>
+        localStorage.setItem('selectedLanguage', 'tr');
+        console.log('Язык установлен в localStorage: tr');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="questions.js"></script>
+    <script src="script.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            Inputmask({ mask: "99.99.9999" }).mask(document.getElementById('birthDate'));
+        });
+    </script>
+</body>
+
+</html>

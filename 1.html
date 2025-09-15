@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMPI Test (566 Soru)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>MMPI Test (566 Soru)</h1>
+        <input type="file" id="excelFile" accept=".xlsm, .xlsx, .xls">
+        <button onclick="loadExcel()">Yükle ve Başla</button>
+        <div id="questionContainer" style="display: none;">
+            <p id="questionText"></p>
+            <div id="answerOptions">
+                <label><input type="radio" name="answer" value="1" required>Evet (1)</label>
+                <label><input type="radio" name="answer" value="2">Hayır (2)</label>
+                <label><input type="radio" name="answer" value="0">Boş (0)</label>
+            </div>
+            <button onclick="nextQuestion()">Sonraki</button>
+            <button onclick="window.submitTest()" style="display: none;">Testi Tamamla</button>
+            <div id="progress">Soru <span id="currentQuestion">1</span> / 566</div>
+        </div>
+        <div id="resultContainer" style="display: none;">
+            <h2>Sonuçlar</h2>
+            <div id="resultText"></div>
+            <canvas id="mmpiChart" width="600" height="400"></canvas>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
