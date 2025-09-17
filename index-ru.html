@@ -895,23 +895,20 @@
             }
 
             body {
-                padding-top: 130px;
-                /* отступ равен высоте шапки + запас */
+                padding-top: 100px;
+                /* уменьшили отступ сверху */
             }
 
             .section .hero {
                 height: auto;
-                /* пусть блок подстраивается под содержимое */
                 min-height: 100vh;
-                /* чтобы оставался полноэкранным */
-                padding: 140px 20px 60px;
-                /* сверху больше, чтобы текст не залезал под шапку */
+                padding: 90px 20px 60px;
+                /* уменьшили верхний отступ */
                 background-attachment: scroll;
             }
 
             .section .hero-content {
                 padding-top: 0;
-                /* убираем лишний отступ */
             }
 
             .footer-container {
@@ -1035,12 +1032,13 @@
 
         @media (max-width: 375px) {
             body {
-                padding-top: 150px;
+                padding-top: 120px;
                 /* увеличиваем ещё чуть-чуть */
             }
 
             .section .hero {
-                padding: 160px 15px 60px;
+                padding: 110px 15px 60px;
+                /* уменьшили верхний отступ */
             }
 
             .section .hero-content h1 {
