@@ -16,12 +16,13 @@
             box-sizing: border-box;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Rubik', sans-serif;
             color: #333;
             background: #fff;
             line-height: 1.6;
-            padding-top: 90px; /* базовый отступ под фиксированную шапку */
         }
 
         /* Хедер */
@@ -203,6 +204,8 @@
             max-width: 900px;
             color: #fff;
             text-align: left;
+            padding-top: 2rem;
+            /* Добавляет отступ сверху 32px (2rem) */
         }
 
         .section .hero {
@@ -743,8 +746,154 @@
             transform: scale(1.1);
         }
 
+        /* Бургер */
+        .burger-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1200;
+            width: 48px;
+            height: 48px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .burger-btn span {
+            display: block;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        /* Анимация в крестик */
+        .burger-btn.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .burger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-btn.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+
+        /* Исправляем мобильное меню */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            /* половина экрана */
+            max-width: 380px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
+            padding: 40px 20px;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Ссылки */
+        /* Список меню */
+        #mobileMenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #mobileMenu ul li {
+            margin-bottom: 20px;
+        }
+
+        #mobileMenu ul li a {
+            display: block;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s ease;
+            background: #f5f5f5;
+        }
+
+        #mobileMenu ul li a:hover,
+        #mobileMenu ul li a.active {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(44, 102, 249, 0.3);
+        }
+
+        /* Для плавного закрытия при клике */
+        #mobileMenu ul li a:active {
+            transform: scale(0.97);
+        }
+
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1099;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+
+
         /* Адаптив */
         @media(max-width:768px) {
+
+            .burger-btn {
+                display: flex;
+                /* Показываем кнопку на мобильных */
+            }
+
+            .nav-center {
+                display: none;
+                /* Скрываем центральное меню */
+            }
+
+            .nav-center.active {
+                display: none;
+                /* Убедимся, что оно не отображается */
+            }
+
+            .header-container {
+                flex-direction: row;
+                /* Устанавливаем ряд */
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 15px;
+            }
+
             body {
                 padding-top: 116px;
                 /* на мобильных шапка выше, отступ увеличиваем */
@@ -761,16 +910,36 @@
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-            }
-
-            .footer-links {
-                justify-content: center;
                 gap: 2rem;
             }
 
+            .footer-brand,
             .footer-contact,
-            .footer-brand {
+            .footer-links {
                 max-width: 100%;
+                flex: 1 1 100%;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-col {
+                align-items: center;
+            }
+
+            .footer-col a {
+                font-size: 1rem;
+            }
+
+            .footer-contact p {
+                font-size: 0.95rem;
+            }
+
+            .footer-social {
+                justify-content: center;
             }
 
             .mmpi-step {
@@ -790,6 +959,7 @@
             }
 
             .features {
+                display: block;
                 flex-direction: column;
                 align-items: center;
             }
@@ -854,6 +1024,113 @@
         .menu-toggle {
             display: none;
         }
+
+        @media (max-width: 375px) {
+            body {
+                padding-top: 140px;
+                /* Увеличенный отступ для высокой шапки на русском */
+            }
+
+            .section .hero-content {
+                padding-top: 1.5rem;
+                /* Меньший отступ сверху для текста в hero-content */
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .section .hero-content h1 {
+                font-size: 1.8rem;
+                /* Уменьшенный размер заголовка */
+                line-height: 1.3;
+            }
+
+            .section .hero-content p {
+                font-size: 0.9rem;
+                /* Уменьшенный размер текста */
+            }
+
+            .section .hero-content .hero-btn {
+                padding: 12px 24px;
+                /* Уменьшенные отступы для кнопки */
+                font-size: 0.9rem;
+            }
+
+            .features {
+                gap: 20px;
+                /* Меньший отступ между feature */
+            }
+
+            .feature h3 {
+                font-size: 0.9rem;
+                /* Уменьшенный размер заголовков feature */
+            }
+
+            .feature p {
+                font-size: 0.85rem;
+                /* Уменьшенный размер текста feature */
+            }
+
+            .header-container {
+                padding: 0 10px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+                height: 28px;
+            }
+
+            .login-button {
+                font-size: 0.85rem;
+                padding: 5px 12px;
+            }
+
+            .nav-center a {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+
+            .lang-switch a {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+
+            .menu-toggle {
+                font-size: 1.3rem;
+                right: 10px;
+                top: 12px;
+            }
+
+            .site-footer {
+                padding: 2rem 1rem;
+            }
+
+            .footer-logo {
+                width: 120px;
+                margin-bottom: 0.8rem;
+            }
+
+            .footer-brand p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            .footer-col a {
+                font-size: 0.85rem;
+            }
+
+            .footer-contact p {
+                font-size: 0.85rem;
+            }
+
+            .footer-social {
+                gap: 12px;
+            }
+
+            .footer-social a svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
     </style>
 
 </head>
@@ -866,11 +1143,11 @@
             <nav class="nav-center">
                 <a href="index-ru.html">Главная</a>
                 <a href="about-ru.html">О тесте</a>
-                <a href="#about">Обо мне</a>
+                <a href="aboutme-ru.html">Обо мне</a>
                 <a href="#blog">Блог</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
-                <a href="index-ru.html" data-lang="ru">Рус</a>
+                <a href="index-ru.html" data-lang="ru" class="active">Рус</a>
                 <a href="index-en.html" data-lang="en">Eng</a>
                 <a href="index.html" data-lang="tr">Türkçe</a>
                 <a href="/login" class="login-button">
@@ -884,13 +1161,27 @@
                     Вход
                 </a>
             </div>
+            <button id="burgerBtn" class="burger-btn" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+        <div id="overlay" class="overlay"></div>
+
+        <!-- ====== МОБИЛЬНОЕ МЕНЮ ====== -->
+        <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index-ru.html">Главная</a></li>
+                <li><a href="about-ru.html">О тесте</a></li>
+                <li><a href="aboutme-ru.html">Обо мне</a></li>
+                <li><a href="#blog">Блог</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section class="section">
         <div class="hero">
             <div class="hero-content">
-                <h1>Узнайте, кто вы на самом деле —<br>профессиональный разбор личности по тесту MMPI.</h1>
+                <h1>Узнайте, кто вы на самом деле — профессиональный разбор личности по тесту MMPI.</h1>
                 <p><strong>Глубокий психологический анализ личности.</strong><br>
                     На основе самого точного в мире теста MMPI — используется в спецслужбах, медицине и HR. Вас разберут
                     по полочкам — профессионально, конфиденциально и без осуждения.
@@ -1217,5 +1508,61 @@
     </footer>
     <script src="main.js"></script>
     <script src="testimonials-carousel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burgerBtn');
+            const mobile = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+
+            console.log('menu init:', { burger, mobile, overlay });
+
+            if (!burger || !mobile || !overlay) {
+                console.error('one or more elements missing: burger/mobile/overlay');
+                return;
+            }
+
+            function openMenu() {
+                burger.classList.add('active');
+                mobile.classList.add('active');   // совпадает с твоим CSS #mobileMenu.active
+                overlay.classList.add('active');  // совпадает с твоим CSS #overlay.active
+                document.body.style.overflow = 'hidden';
+                console.log('menu opened');
+            }
+
+            function closeMenu() {
+                burger.classList.remove('active');
+                mobile.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log('menu closed');
+            }
+
+            burger.addEventListener('click', (e) => {
+                // если кнопка внутри формы — предотвратим submit
+                if (e) e.preventDefault();
+                const isOpen = mobile.classList.contains('active');
+                console.log('burger clicked, isOpen=', isOpen);
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobile.classList.contains('active')) closeMenu();
+            });
+
+            // если окно стало большим (десктоп) — автоматически закрывать меню
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900 && mobile.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
+
+
+
 
 </body>
+
+</html>

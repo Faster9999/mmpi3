@@ -1,3 +1,4 @@
+// Глобальные переменные
 let answers = new Array(566).fill(null);
 let currentQuestionIndex = 0;
 let gender = 0; // 0 = Мужчина, 1 = Женщина
@@ -12,9 +13,7 @@ let email = '';
 let phone = '';
 let city = '';
 let whatsappTelegram = '';
-let currentLanguage = localStorage.getItem('selectedLanguage') || 'ru';
-
-console.log('Начало загрузки script.js');
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'tr';
 
 // Объединяем все вопросы в один массив
 const allQuestions = [...ruQuestions, ...enQuestions, ...trQuestions];
@@ -23,6 +22,9 @@ const allQuestions = [...ruQuestions, ...enQuestions, ...trQuestions];
 function getCurrentQuestions() {
     return allQuestions.filter(q => q.lang === currentLanguage);
 }
+
+// Инициализируем список вопросов
+questions = getCurrentQuestions();
 
 // Функция установки языка
 function setLanguage(lang) {
@@ -35,7 +37,6 @@ function setLanguage(lang) {
         displayQuestion();
     }
 }
-
 const scaleIndices = {
     'L': [15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 195, 225, 255, 285],
     'F': { V: [14, 23, 27, 31, 33, 34, 35, 40, 42, 48, 49, 50, 53, 56, 66, 85, 121, 123, 139, 146, 151, 156, 168, 184, 197, 200, 202, 205, 206, 209, 210, 211, 215, 218, 227, 245, 246, 247, 252, 256, 269, 275, 286, 291, 293], N: [17, 20, 54, 65, 75, 83, 112, 113, 115, 164, 169, 177, 185, 196, 199, 220, 257, 258, 272, 276] },
@@ -51,55 +52,37 @@ const scaleIndices = {
     '9': { V: [11, 13, 21, 22, 59, 64, 73, 97, 100, 109, 127, 134, 145, 156, 157, 167, 181, 194, 212, 222, 226, 228, 232, 233, 238, 240, 250, 251, 263, 266, 268, 271, 277, 279, 298], N: [101, 105, 111, 119, 130, 148, 166, 171, 180, 267, 289] },
     '0': { V: [32, 67, 82, 111, 117, 124, 138, 147, 171, 172, 180, 201, 236, 267, 278, 292, 304, 316, 321, 332, 336, 342, 357, 377, 383, 398, 401, 427, 436, 455, 473, 467, 549, 564], N: [25, 33, 57, 91, 99, 119, 126, 143, 193, 208, 229, 231, 254, 262, 281, 296, 309, 353, 359, 371, 391, 400, 415, 440, 446, 449, 450, 451, 462, 469, 479, 481, 482, 501, 521, 547] }
 };
-
 function calculateAge(birthDate) {
-    const [day, month, year] = birthDate.split('.').map(Number);
     const today = new Date();
-    const birth = new Date(year, month - 1, day);
+    const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
     const monthDiff = today.getMonth() - birth.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < day)) {
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
         age--;
     }
     return age;
 }
-
+// Функция расчета сырых баллов
 function calculateRawScore(scale, positiveIndices, negativeIndices) {
     let score = 0;
     const excludedItems = [14, 33, 48, 63, 66, 69, 121, 123, 133, 151, 168, 182, 184, 197, 200, 205, 266, 275, 293, 334, 349, 350, 462, 464, 474, 542, 551].map(i => i - 1);
 
-    questions.forEach((question, index) => {
-        if (question.lang === currentLanguage) {
-            const adjustedIdx = question.number - 1;
-            if (!excludedItems.includes(adjustedIdx) && adjustedIdx >= 0 && adjustedIdx < answers.length) {
-                // Выбираем шкалы в зависимости от пола
-                const currentScales = (gender === 1 && question.femaleScales) ? question.femaleScales : question.scales;
+    if (scale === 'L') {
+        positiveIndices.forEach(idx => {
+            const adjustedIdx = idx - 1;
+            if (!excludedItems.includes(adjustedIdx) && adjustedIdx >= 0 && adjustedIdx < answers.length && answers[adjustedIdx] === 0) score++; // "Нет" увеличивает балл
+        });
+    } else {
+        positiveIndices.forEach(idx => {
+            const adjustedIdx = idx - 1;
+            if (!excludedItems.includes(adjustedIdx) && adjustedIdx >= 0 && adjustedIdx < answers.length && answers[adjustedIdx] === 1) score++;
+        });
+        negativeIndices.forEach(idx => {
+            const adjustedIdx = idx - 1;
+            if (!excludedItems.includes(adjustedIdx) && adjustedIdx >= 0 && adjustedIdx < answers.length && answers[adjustedIdx] === 0) score++;
+        });
+    }
 
-                // Проверяем соответствие scaleIndices для шкалы 5
-                let indicesMatch = false;
-                if (scale === '5') {
-                    const indices = gender === 1 ? scaleIndices['5'].V : scaleIndices['5'].V;
-                    const negIndices = gender === 1 ? scaleIndices['5'].N : scaleIndices['5'].N;
-                    indicesMatch = indices.includes(question.number) || negIndices.includes(question.number);
-                } else {
-                    indicesMatch = positiveIndices.includes(question.number) || negativeIndices.includes(question.number);
-                }
-
-                // Учитываем баллы, если шкала совпадает
-                if (currentScales.includes(scale) || (scale === '5' && indicesMatch)) {
-                    if (scale === 'L' && negativeIndices.includes(question.number) && answers[adjustedIdx] === 0) {
-                        score++;
-                    } else if (positiveIndices.includes(question.number) && answers[adjustedIdx] === 1) {
-                        score++;
-                    } else if (negativeIndices.includes(question.number) && answers[adjustedIdx] === 0) {
-                        score++;
-                    }
-                }
-            }
-        }
-    });
-
-    console.log(`Рассчет баллов для шкалы ${scale}, пол: ${gender}, балл: ${score}`);
     return score;
 }
 const educationTranslations = {
@@ -141,7 +124,11 @@ const translations = {
         // Переводы для графика
         chartTitle: 'Профиль MMPI',
         xAxisLabel: 'Шкалы MMPI',
-        datasetLabel: 'T-баллы'
+        datasetLabel: 'T-баллы',
+        // Переводы для ошибок
+        selectAnswer: 'Пожалуйста, выберите ответ (Да, Не знаю или Нет).',
+        unanswered: 'Вы не ответили на вопрос №{num}. Возвращаю к нему.',
+        formError: 'Не удалось получить данные формы. Проверьте поля.'
     },
     en: {
         formTitle: 'Start Test',
@@ -175,7 +162,11 @@ const translations = {
         // Переводы для графика
         chartTitle: 'MMPI Profile',
         xAxisLabel: 'MMPI Scales',
-        datasetLabel: 'T-Scores'
+        datasetLabel: 'T-Scores',
+        // Переводы для ошибок
+        selectAnswer: 'Please select an answer (Yes, Don\'t know, or No).',
+        unanswered: 'You have not answered question #{num}. Returning to it.',
+        formError: 'Unable to retrieve form data. Please check the fields.'
     },
     tr: {
         formTitle: 'Testi Başlat',
@@ -209,7 +200,11 @@ const translations = {
         // Переводы для графика
         chartTitle: 'MMPI Profili',
         xAxisLabel: 'MMPI Ölçekleri',
-        datasetLabel: 'T-Skorları'
+        datasetLabel: 'T-Skorları',
+        // Переводы для ошибок
+        selectAnswer: 'Lütfen bir cevap seçin (Evet, Bilmiyorum veya Hayır).',
+        unanswered: 'Soru #{num}\'u cevaplamadınız. Ona geri dönüyorum.',
+        formError: 'Form verileri alınamadı. Lütfen alanları kontrol edin.'
     }
 };
 // Объект переводов для формы
@@ -224,7 +219,7 @@ const formTranslations = {
         emailLabel: 'E-mail *',
         emailPlaceholder: 'Результаты будут отправлены на этот адрес',
         phoneLabel: 'Телефон *',
-        phonePlaceholder: 'Пример: +375 29 111-11-11',
+        phonePlaceholder: 'Важно заполнить',
         cityLabel: 'Город',
         educationLabel: 'Образование *',
         whatsappTelegramLabel: 'WhatsApp/Telegram',
@@ -252,7 +247,7 @@ const formTranslations = {
         emailLabel: 'E-mail *',
         emailPlaceholder: 'Results will be sent to this address',
         phoneLabel: 'Phone *',
-        phonePlaceholder: 'Example: +375 29 111-11-11',
+        phonePlaceholder: 'It is important to fill in',
         cityLabel: 'City',
         educationLabel: 'Education *',
         whatsappTelegramLabel: 'WhatsApp/Telegram',
@@ -280,7 +275,7 @@ const formTranslations = {
         emailLabel: 'E-posta *',
         emailPlaceholder: 'Sonuçlar bu adrese gönderilecek',
         phoneLabel: 'Telefon *',
-        phonePlaceholder: 'Örnek: +375 29 111-11-11',
+        phonePlaceholder: 'Örnek: + 90 123 456 7891',
         cityLabel: 'Şehir',
         educationLabel: 'Eğitim *',
         whatsappTelegramLabel: 'WhatsApp/Telegram',
@@ -297,50 +292,6 @@ const formTranslations = {
         phoneRequired: 'Telefon zorunludur.',
         educationRequired: 'Eğitim zorunludur.',
         consentRequired: 'Veri işleme izni zorunludur.'
-    }
-};
-window.autoCompleteTest = function () {
-    const genderSelect = document.getElementById('gender');
-    const birthDateInput = document.getElementById('birthDate');
-    const educationSelect = document.getElementById('education');
-    const surnameInput = document.getElementById('surname');
-    const nameInput = document.getElementById('name');
-    const patronymicInput = document.getElementById('patronymic') || { value: '' };
-    const emailInput = document.getElementById('email');
-    const phoneInput = document.getElementById('phone');
-    const cityInput = document.getElementById('city') || { value: '' };
-    const whatsappTelegramInput = document.getElementById('whatsappTelegram') || { value: '' };
-
-    if (!genderSelect || !birthDateInput.value) {
-        alert('Не удалось получить данные формы. Проверьте поля.');
-        return;
-    }
-
-    gender = parseInt(genderSelect.value === 'kadın' ? 1 : 0) || 0;
-    birthDate = birthDateInput.value;
-    age = birthDate ? calculateAge(birthDate) : 25;
-    education = educationSelect.value || 'vysshee';
-    surname = surnameInput.value || '';
-    name = nameInput.value || '';
-    patronymic = patronymicInput.value || 'Не указано';
-    email = emailInput.value || '';
-    phone = phoneInput.value || '';
-    city = cityInput.value || 'Не указано';
-    whatsappTelegram = whatsappTelegramInput.value || 'Не указано';
-
-    currentQuestionIndex = 565;
-    const intro = document.getElementById('intro');
-    const questionContainer = document.getElementById('questionContainer');
-    if (intro && questionContainer) {
-        intro.style.display = 'none';
-        questionContainer.style.display = 'block';
-        displayQuestion();
-
-        const nextArrow = document.getElementById('nextArrow');
-        if (nextArrow) nextArrow.style.display = 'none';
-
-        const submitBtn = document.getElementById('showResultBtn');
-        if (submitBtn) submitBtn.style.display = 'inline-block';
     }
 };
 
@@ -472,7 +423,7 @@ function displayResults() {
         resultText.innerHTML = translations[currentLanguage].error || 'Ошибка: не удалось отобразить результаты.';
     }
 }
-
+// Функция обновления графика
 function updateChart() {
     const ctx = document.getElementById('mmpiChart');
     if (!ctx) {
@@ -555,10 +506,45 @@ function updateChart() {
         }
     });
 }
+// function autoFillAnswers() {
+//     answers = new Array(566); // Инициализация массива нулями
+
+//     // 1–100: "Да" (1)
+//     for (let i = 0; i < 100; i++) {
+//         answers[i] = 1;
+//     }
+
+//     // 101–200: "Нет" (0)
+//     for (let i = 100; i < 200; i++) {
+//         answers[i] = 0;
+//     }
+
+//     // 201–300: "Да" (1)
+//     for (let i = 200; i < 300; i++) {
+//         answers[i] = 1;
+//     }
+
+//     // 301–400: "Нет" (0)
+//     for (let i = 300; i < 400; i++) {
+//         answers[i] = 0;
+//     }
+
+//     // 401–500: "Да" (1)
+//     for (let i = 400; i < 500; i++) {
+//         answers[i] = 1;
+//     }
+
+//     // 501–566: чередование "Да" (1) и "Нет" (0), начиная с "Да"
+//     for (let i = 500; i < 566; i++) {
+//         answers[i] = (i - 500) % 2 === 0 ? 1 : 0; // Четные индексы (500, 502, ...) — "Да", нечетные — "Нет"
+//     }
+
+//     return answers;
+// }
 
 const norms = {
     'L': { M: 4.2, σ: 2.9 },
-    'F': { M: 2.76, σ: 4.67 },
+    'F': { M: 2.76, σ: 4.67 }, // Обновлено
     'K': { M: 12.1, σ: 5.4 },
     '1': { M: 11.1, σ: 3.9 },
     '2': { M: 16.6, σ: 4.11 },
@@ -566,7 +552,7 @@ const norms = {
     '4': { M: 18.68, σ: 4.11 },
     '5': { M: 20.46, σ: 5.0 },
     '6': { M: 7.9, σ: 3.4 },
-    '7': { M: 23.06, σ: 5.0 },
+    '7': { M: 23.06, σ: 5.0 }, // Обновлено
     '8': { M: 22, σ: 5.0 },
     '9': { M: 17.0, σ: 4.06 },
     '0': { M: 25, σ: 5 }
@@ -658,7 +644,6 @@ function displayQuestion() {
     // Сохраняем текущие шкалы для использования в calculateRawScore
     currentQuestion.scales = currentScales;
 }
-
 function changeLanguage() {
     console.log(`Обновление интерфейса для языка: ${currentLanguage}`);
     const lang = currentLanguage;
@@ -675,7 +660,7 @@ function changeLanguage() {
     if (progressName) progressName.textContent = t.progressName;
 
     document.querySelector('label[for="birthDate"]').textContent = ft.birthDateLabel;
-    document.getElementById('birthDate').placeholder = ft.birthDatePlaceholder; // Добавлено
+    document.getElementById('birthDate').placeholder = ft.birthDatePlaceholder;
     document.querySelector('label[for="gender"]').textContent = ft.genderLabel;
     document.querySelector('label[for="surname"]').textContent = ft.surnameLabel;
     document.querySelector('label[for="name"]').textContent = ft.nameLabel;
@@ -711,7 +696,6 @@ function changeLanguage() {
         updateChart();
     }
 }
-
 window.startTest = function () {
     console.log('startTest вызвана');
     document.querySelectorAll('.error').forEach(error => {
@@ -753,7 +737,7 @@ window.startTest = function () {
         } else {
             birthDate = birthDateInput.value;
             age = calculateAge(birthDate);
-            if (age < 16 || age > 120) { // Установите разумные пределы возраста
+            if (age < 16 || age > 120) {
                 document.getElementById('birthDateError').textContent = t.birthDateInvalid;
                 document.getElementById('birthDateError').classList.add('visible');
                 hasErrors = true;
@@ -761,7 +745,6 @@ window.startTest = function () {
         }
     }
 
-    // Валидация пола
     // Валидация пола
     if (!genderSelect.value && genderSelect.value !== '0' && genderSelect.value !== '1') {
         document.getElementById('genderError').textContent = t.genderRequired;
@@ -825,9 +808,9 @@ window.startTest = function () {
     // Инициализация теста
     answers = new Array(566).fill(null);
     currentQuestionIndex = 0;
-    patronymic = patronymicInput.value || t.notSpecified;
-    city = cityInput.value || t.notSpecified;
-    whatsappTelegram = whatsappTelegramInput.value || t.notSpecified;
+    patronymic = patronymicInput.value || translations[currentLanguage].notSpecified;
+    city = cityInput.value || translations[currentLanguage].notSpecified;
+    whatsappTelegram = whatsappTelegramInput.value || translations[currentLanguage].notSpecified;
 
     const intro = document.getElementById('intro');
     const questionContainer = document.getElementById('questionContainer');
@@ -838,15 +821,9 @@ window.startTest = function () {
     }
 };
 window.submitTest = function () {
-    const translations = {
-        ru: { unanswered: 'Вы не ответили на вопрос №{num}. Возвращаю к нему.' },
-        en: { unanswered: 'You have not answered question #{num}. Returning to it.' },
-        tr: { unanswered: 'Soru #{num}\'u cevaplamadınız. Ona geri dönüyorum.' }
-    };
-    const t = translations[currentLanguage];
     const unansweredIndex = answers.findIndex(a => a === undefined || a === null);
     if (unansweredIndex !== -1) {
-        alert(t.unanswered.replace('{num}', unansweredIndex + 1));
+        alert(`Вы не ответили на вопрос №${unansweredIndex + 1}. Возвращаю к нему.`);
         currentQuestionIndex = unansweredIndex;
         const questionContainer = document.getElementById('questionContainer');
         if (questionContainer) {
@@ -866,45 +843,65 @@ window.submitTest = function () {
             displayResults();
         } catch (error) {
             console.error('Ошибка при обновлении результатов:', error);
-            document.getElementById('resultText').textContent = translations[currentLanguage].error || 'Произошла ошибка при расчете результатов.';
+            document.getElementById('resultText').textContent = 'Произошла ошибка при расчете результатов. Проверьте консоль.';
         }
     }
 };
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('script.js загружен');
-    console.log('startTest определена:', typeof window.startTest === 'function');
+    // Нормы T-баллов
+    const maleNorms = {
+        'Лжи': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70],
+        'Достоверности': [30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80],
+        'Коррекции': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70],
+        '1': [30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 80, 80, 80, 80],
+        '2': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '3': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '4': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '5': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '6': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '7': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '8': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '9': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '0': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70]
+    };
 
-    // Инициализация языка
-    setLanguage(currentLanguage);
+    const femaleNorms = {
+        'Лжи': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70],
+        'Достоверности': [30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80],
+        'Коррекции': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70],
+        '1': [30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 80, 80, 80, 80],
+        '2': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '3': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '4': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '5': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '6': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '7': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '8': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '9': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70],
+        '0': [30, 35, 40, 45, 50, 55, 60, 65, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70]
+    };
+    const ballastItems = [14, 33, 48, 63, 66, 69, 121, 123, 133, 151, 168, 182, 184, 197, 200, 205, 266, 275, 293, 349, 350, 462, 464, 474, 551, 542];
 
-    // Обработчик для кнопки "Начать тест"
-    const startButton = document.querySelector('button[onclick="startTest()"]');
-    if (startButton) {
-        startButton.addEventListener('click', window.startTest);
-    }
+
+
+    const excludedItems = [14, 33, 48, 63, 66, 69, 121, 123, 133, 151, 168, 182, 184, 197, 200, 205, 266, 275, 293, 334, 349, 350, 462, 464, 474, 542, 551].map(i => i - 1);
+    let selectedValue = null;
 
 
     document.addEventListener('keydown', (event) => {
         if (event.ctrlKey && event.key === 'Enter') {
             event.preventDefault();
-            const nextArrow = document.getElementById('nextArrow');
-            if (nextArrow && nextArrow.style.display !== 'none') {
-                nextArrow.click();
+            const nextButton = document.querySelector('button[onclick="nextQuestion()"]');
+            if (nextButton && nextButton.style.display !== 'none') {
+                nextButton.click();
             }
         }
     });
 
     window.nextQuestion = function () {
-        const translations = {
-            ru: { selectAnswer: 'Пожалуйста, выберите ответ.' },
-            en: { selectAnswer: 'Please select an answer.' },
-            tr: { selectAnswer: 'Lütfen bir cevap seçin.' }
-        };
-        const t = translations[currentLanguage];
         const selectedAnswer = document.querySelector('input[name="answer"]:checked');
         if (!selectedAnswer) {
-            alert(t.selectAnswer);
+            alert('Пожалуйста, выберите ответ.');
             return;
         }
 
@@ -914,17 +911,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentQuestionIndex < 566) {
             displayQuestion();
         } else {
+            // Проверим на незаполненные
             const unansweredIndex = answers.findIndex(a => a === null || a === undefined);
             if (unansweredIndex !== -1) {
-                alert(t.unanswered.replace('{num}', unansweredIndex + 1));
+                alert(`Вы не ответили на вопрос №${unansweredIndex + 1}.`);
                 currentQuestionIndex = unansweredIndex;
                 displayQuestion();
             } else {
-                document.getElementById('showResultBtn').style.display = 'inline-block';
+                document.querySelector('button[onclick="nextQuestion()"]').style.display = 'none';
+                document.querySelector('button[onclick="submitTest()"]').style.display = 'inline-block';
             }
         }
     };
-
     document.getElementById('prevArrow').addEventListener('click', () => {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
@@ -933,14 +931,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById('nextArrow').addEventListener('click', () => {
-        const translations = {
-            ru: { selectAnswer: 'Пожалуйста, выберите ответ (Да, Не знаю или Нет).' },
-            en: { selectAnswer: 'Please select an answer (Yes, Don\'t know, or No).' },
-            tr: { selectAnswer: 'Lütfen bir cevap seçin (Evet, Bilmiyorum veya Hayır).' }
-        };
-        const t = translations[currentLanguage];
         if (answers[currentQuestionIndex] === undefined || answers[currentQuestionIndex] === null) {
-            alert(t.selectAnswer);
+            alert('Пожалуйста, выберите ответ (Да, Не знаю или Нет).');
             return;
         }
         if (currentQuestionIndex < 565) {
@@ -951,6 +943,18 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('showResultBtn').style.display = 'inline-block';
         }
     });
+    function changeLanguage() {
+        const lang = document.getElementById('language').value;
+        const translations = {
+            ru: { next: 'Следующий', submit: 'Завершить тест', title: 'Тест MMPI (566 Вопросов)' },
+            en: { next: 'Next', submit: 'Submit Test', title: 'MMPI Test (566 Questions)' },
+            tr: { next: 'Sonraki', submit: 'Testi Tamamla', title: 'MMPI Testi (566 Soru)' }
+        };
+        const t = translations[lang];
+        document.getElementById('title').textContent = t.title;
+        document.querySelector('button[onclick="nextQuestion()"]').textContent = t.next;
+        document.querySelector('button[onclick="submitTest()"]').textContent = t.submit;
+    }
 
     document.querySelector('.menu-toggle').addEventListener('click', () => {
         document.querySelector('.nav-center').classList.toggle('active');
@@ -969,6 +973,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.1 });
     sections.forEach(section => observer.observe(section));
-
-    console.log('Конец загрузки script.js');
 });

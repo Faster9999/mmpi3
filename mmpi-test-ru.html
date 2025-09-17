@@ -10,18 +10,17 @@
 
 <body>
     <header>
-        <button class="menu-toggle">☰</button>
         <div class="header-container">
             <div class="logo">Rönesans Danışmanlık</div>
             <nav class="nav-center">
                 <a href="index-ru.html">Главная</a>
-                <a href="index-ru.html#test">О тесте</a>
+                <a href="about-ru.html">О тесте</a>
                 <a href="index-ru.html#about">Обо мне</a>
                 <a href="index-ru.html#blog">Блог</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
-                <a href="mmpi-test-en.html" data-lang="en">Eng</a>
                 <a href="mmpi-test-ru.html" data-lang="ru" class="active">Рус</a>
+                <a href="mmpi-test-en.html" data-lang="en">Eng</a>
                 <a href="mmpi-test-tr.html" data-lang="tr">Türkçe</a>
                 <a href="/login" class="login-button">
                     <svg class="door-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -34,32 +33,46 @@
                     Вход
                 </a>
             </div>
+            <button id="burgerBtn" class="burger-btn" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+        <div id="overlay" class="overlay"></div>
+
+        <!-- ====== МОБИЛЬНОЕ МЕНЮ ====== -->
+        <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index-ru.html">Главная</a></li>
+                <li><a href="about-ru.html">О тесте</a></li>
+                <li><a href="aboutme-ru.html">Обо мне</a></li>
+                <li><a href="#blog">Блог</a></li>
+            </ul>
+        </nav>
     </header>
     <div id="intro" class="container">
         <div class="test-form">
             <h1 class="form-title">Начать тест</h1>
             <div class="form-group">
-                <label for="birthDate" id="birthDateLabel"></label>
+                <label for="birthDate" id="birthDateLabel">Дата рождения <span class="required-star">*</span></label>
                 <input type="text" id="birthDate" name="birthDate" placeholder="дд.мм.гггг">
                 <div class="error" id="birthDateError"></div>
             </div>
             <div class="form-group">
                 <span class="error" id="genderError"></span>
-                <label for="gender">Пол *</label>
+                <label for="gender">Пол <span class="required-star">*</span></label>
                 <select id="gender" name="gender">
-                    <option value="0">${translations[currentLanguage].male}</option>
-                    <option value="1">${translations[currentLanguage].female}</option>
+                    <option value="0">Мужской</option>
+                    <option value="1">Женский</option>
                 </select>
             </div>
             <div class="form-group">
                 <span class="error" id="surnameError"></span>
-                <label for="surname">Фамилия *</label>
+                <label for="surname">Фамилия <span class="required-star">*</span></label>
                 <input type="text" id="surname" required>
             </div>
             <div class="form-group">
                 <span class="error" id="nameError"></span>
-                <label for="name">Имя *</label>
+                <label for="name">Имя <span class="required-star">*</span></label>
                 <input type="text" id="name" required>
             </div>
             <div class="form-group">
@@ -69,13 +82,13 @@
             </div>
             <div class="form-group">
                 <span class="error" id="emailError"></span>
-                <label for="email">E-mail *</label>
+                <label for="email">E-mail <span class="required-star">*</span></label>
                 <input type="email" id="email" placeholder="Результаты будут отправлены на этот адрес" required>
             </div>
             <div class="form-group">
                 <span class="error" id="phoneError"></span>
-                <label for="phone">Телефон *</label>
-                <input type="tel" id="phone" placeholder="Пример: +375 29 111-11-11" required>
+                <label for="phone">Телефон <span class="required-star">*</span></label>
+                <input type="tel" id="phone" placeholder required>
             </div>
             <div class="form-group">
                 <span class="error" id="cityError"></span>
@@ -84,7 +97,7 @@
             </div>
             <div class="form-group">
                 <span class="error" id="educationError"></span>
-                <label for="education">Образование *</label>
+                <label for="education">Образование <span class="required-star">*</span></label>
                 <select id="education">
                     <option value="shkolnoe">Школьное</option>
                     <option value="srednee_specialnoe">Среднее специальное</option>
@@ -102,7 +115,6 @@
                 <label for="consent" class="consent-label">Согласие на обработку персональных данных</label>
             </div>
             <div class="form-actions">
-                <button onclick="autoCompleteTest()" class="btn secondary">Автозаполнить и завершить</button>
                 <button onclick="startTest()" class="btn primary">Начать тест</button>
             </div>
         </div>
@@ -143,6 +155,57 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             Inputmask({ mask: "99.99.9999" }).mask(document.getElementById('birthDate'));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burgerBtn');
+            const mobile = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+
+            console.log('menu init:', { burger, mobile, overlay });
+
+            if (!burger || !mobile || !overlay) {
+                console.error('one or more elements missing: burger/mobile/overlay');
+                return;
+            }
+
+            function openMenu() {
+                burger.classList.add('active');
+                mobile.classList.add('active');   // совпадает с твоим CSS #mobileMenu.active
+                overlay.classList.add('active');  // совпадает с твоим CSS #overlay.active
+                document.body.style.overflow = 'hidden';
+                console.log('menu opened');
+            }
+
+            function closeMenu() {
+                burger.classList.remove('active');
+                mobile.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log('menu closed');
+            }
+
+            burger.addEventListener('click', (e) => {
+                // если кнопка внутри формы — предотвратим submit
+                if (e) e.preventDefault();
+                const isOpen = mobile.classList.contains('active');
+                console.log('burger clicked, isOpen=', isOpen);
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobile.classList.contains('active')) closeMenu();
+            });
+
+            // если окно стало большим (десктоп) — автоматически закрывать меню
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900 && mobile.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
         });
     </script>
 </body>

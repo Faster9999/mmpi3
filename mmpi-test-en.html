@@ -10,13 +10,12 @@
 
 <body>
     <header>
-        <button class="menu-toggle">☰</button>
         <div class="header-container">
             <div class="logo">Rönesans Danışmanlık</div>
             <nav class="nav-center">
                 <a href="index-en.html">Home</a>
-                <a href="#test">About Test</a>
-                <a href="#about">About Me</a>
+                <a href="about-en.html">About Test</a>
+                <a href="aboutme-en.html">About Me</a>
                 <a href="#blog">Blog</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
@@ -34,32 +33,45 @@
                     Login
                 </a>
             </div>
+            <button id="burgerBtn" class="burger-btn" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
         </div>
+        <div id="overlay" class="overlay"></div>
+        <!-- ====== МОБИЛЬНОЕ МЕНЮ ====== -->
+        <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index-en.html">Home</a></li>
+                <li><a href="about-en.html">About Test</a></li>
+                <li><a href="aboutme-en.html">About Me</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </nav>
     </header>
     <div id="intro" class="container">
         <div class="test-form">
             <h1 class="form-title">Start Test</h1>
             <div class="form-group">
-                <label for="birthDate" id="birthDateLabel"></label>
-                <input type="text" id="birthDate" name="birthDate" placeholder="дд.мм.гггг">
+                <label for="birthDate" id="birthDateLabel">Date of Birth <span class="required-star">*</span></label>
+                <input type="text" id="birthDate" name="birthDate" placeholder="DD/MM/YYYY">
                 <div class="error" id="birthDateError"></div>
             </div>
             <div class="form-group">
                 <span class="error" id="genderError"></span>
-                <label for="gender">Gender *</label>
+                <label for="gender">Gender <span class="required-star">*</span></label>
                 <select id="gender" name="gender">
-                    <option value="0">${translations[currentLanguage].male}</option>
-                    <option value="1">${translations[currentLanguage].female}</option>
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
                 </select>
             </div>
             <div class="form-group">
                 <span class="error" id="surnameError"></span>
-                <label for="surname">Surname *</label>
+                <label for="surname">Surname <span class="required-star">*</span></label>
                 <input type="text" id="surname" required>
             </div>
             <div class="form-group">
                 <span class="error" id="nameError"></span>
-                <label for="name">Name *</label>
+                <label for="name">Name <span class="required-star">*</span></label>
                 <input type="text" id="name" required>
             </div>
             <div class="form-group">
@@ -69,13 +81,13 @@
             </div>
             <div class="form-group">
                 <span class="error" id="emailError"></span>
-                <label for="email">E-mail *</label>
+                <label for="email">E-mail <span class="required-star">*</span></label>
                 <input type="email" id="email" placeholder="Results will be sent to this address" required>
             </div>
             <div class="form-group">
                 <span class="error" id="phoneError"></span>
-                <label for="phone">Phone *</label>
-                <input type="tel" id="phone" placeholder="Example: +375 29 111-11-11" required>
+                <label for="phone">Phone <span class="required-star">*</span></label>
+                <input type="tel" id="phone" placeholder required>
             </div>
             <div class="form-group">
                 <span class="error" id="cityError"></span>
@@ -84,7 +96,7 @@
             </div>
             <div class="form-group">
                 <span class="error" id="educationError"></span>
-                <label for="education">Education *</label>
+                <label for="education">Education <span class="required-star">*</span></label>
                 <select id="education" required>
                     <option value="shkolnoe">School</option>
                     <option value="srednee_specialnoe">Secondary Special</option>
@@ -102,7 +114,6 @@
                 <label for="consent" class="consent-label">Consent to personal data processing</label>
             </div>
             <div class="form-actions">
-                <button onclick="autoCompleteTest()" class="btn secondary">Auto-complete and complete</button>
                 <button onclick="startTest()" class="btn primary">Start Test</button>
             </div>
         </div>
@@ -141,6 +152,57 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="questions.js"></script>
     <script src="script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burgerBtn');
+            const mobile = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+
+            console.log('menu init:', { burger, mobile, overlay });
+
+            if (!burger || !mobile || !overlay) {
+                console.error('one or more elements missing: burger/mobile/overlay');
+                return;
+            }
+
+            function openMenu() {
+                burger.classList.add('active');
+                mobile.classList.add('active');   // совпадает с твоим CSS #mobileMenu.active
+                overlay.classList.add('active');  // совпадает с твоим CSS #overlay.active
+                document.body.style.overflow = 'hidden';
+                console.log('menu opened');
+            }
+
+            function closeMenu() {
+                burger.classList.remove('active');
+                mobile.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log('menu closed');
+            }
+
+            burger.addEventListener('click', (e) => {
+                // если кнопка внутри формы — предотвратим submit
+                if (e) e.preventDefault();
+                const isOpen = mobile.classList.contains('active');
+                console.log('burger clicked, isOpen=', isOpen);
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobile.classList.contains('active')) closeMenu();
+            });
+
+            // если окно стало большим (десктоп) — автоматически закрывать меню
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900 && mobile.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
