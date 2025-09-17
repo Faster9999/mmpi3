@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Миннесотский многофазный личностный опросник (MMPI) — анализ личности, история, особенности, инструкции.">
+    <title>О тесте MMPI</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background: #fff;
+            line-height: 1.6;
+        }
+
+        /* Хедер */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(47, 47, 47, 0.7);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(47, 47, 47, 0.85);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            max-width: 100%;
+        }
+
+        .logo {
+            color: #fff;
+            font-family: 'Georgia', serif;
+            font-weight: 800;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #e4e4e4;
+        }
+
+        .login-button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #2c66f9;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 6px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(44, 102, 249, 0.4);
+        }
+
+        .login-button:hover {
+            background: #1a3fc1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(26, 63, 193, 0.4);
+        }
+
+        .door-icon {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-center a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            line-height: 1.6;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .nav-center a::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            transition: width 0.3s ease;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .nav-center a:hover::after {
+            width: 100%;
+        }
+
+        .nav-center a:hover {
+            color: linear-gradient(90deg, #2c66f9, #1a3fc1);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+        }
+
+        .lang-switch a {
+            color: #c6d6ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid linear-gradient(90deg, #2c66f9, #1a3fc1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 111, 97, 0.1);
+        }
+
+        .lang-switch a.active {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            border-radius: 3px;
+        }
+
+        .lang-switch a:hover {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 25px;
+            top: 15px;
+        }
+
+        /* Футер */
+        .site-footer {
+            background: rgb(17, 17, 17);
+            color: #fff;
+            padding: 3rem 1rem;
+            font-family: sans-serif;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            flex: 1 1 200px;
+            max-width: 240px;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex: 2 1 500px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-col a {
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: #aaa;
+        }
+
+        .footer-contact {
+            flex: 1 1 200px;
+            max-width: 250px;
+        }
+
+        .footer-contact p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .footer-contact a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 18px;
+            margin-top: 1rem;
+        }
+
+        .footer-social a svg {
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        /* Бургер */
+        .burger-btn {
+            display: none;
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1200;
+            width: 48px;
+            height: 48px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .burger-btn span {
+            display: block;
+            width: 22px;
+            height: 3px;
+            border-radius: 2px;
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        /* Анимация в крестик */
+        .burger-btn.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .burger-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-btn.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+
+        /* Исправляем мобильное меню */
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            /* половина экрана */
+            max-width: 380px;
+            height: 100vh;
+            background: #fff;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
+            padding: 40px 20px;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Ссылки */
+        /* Список меню */
+        #mobileMenu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #mobileMenu ul li {
+            margin-bottom: 20px;
+        }
+
+        #mobileMenu ul li a {
+            display: block;
+            padding: 15px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s ease;
+            background: #f5f5f5;
+        }
+
+        #mobileMenu ul li a:hover,
+        #mobileMenu ul li a.active {
+            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(44, 102, 249, 0.3);
+        }
+
+        /* Для плавного закрытия при клике */
+        #mobileMenu ul li a:active {
+            transform: scale(0.97);
+        }
+
+        #mobileMenu.active {
+            transform: translateX(0);
+        }
+
+        #overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1099;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        #overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+
+
+        /* Адаптив */
+        @media(max-width:768px) {
+
+            .burger-btn {
+                display: flex;
+                /* Показываем кнопку на мобильных */
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 15px;
+            }
+
+            .nav-center,
+            .lang-switch {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .nav-center {
+                flex-direction: column;
+                gap: 15px;
+                display: none;
+            }
+
+            .nav-center.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .logo {
+                height: 35px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .footer-brand,
+            .footer-contact,
+            .footer-links {
+                max-width: 100%;
+                flex: 1 1 100%;
+                align-items: center;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-col {
+                align-items: center;
+            }
+
+            .footer-col a {
+                font-size: 1rem;
+            }
+
+            .footer-contact p {
+                font-size: 0.95rem;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        /* Responsive для экранов до 375px */
+        @media (max-width: 375px) {
+            body {
+                padding-top: 180px;
+                /* Уменьшенный отступ для шапки */
+            }
+
+            .header-container {
+                padding: 0 10px;
+                /* Уменьшенные отступы */
+            }
+
+            .logo {
+                font-size: 1.4rem;
+                /* Меньший размер логотипа */
+                height: 30px;
+            }
+
+            .menu-toggle {
+                font-size: 1.2rem;
+                /* Уменьшенная иконка меню */
+                right: 15px;
+                top: 12px;
+            }
+
+            .nav-center {
+                gap: 10px;
+                /* Меньший промежуток между ссылками */
+            }
+
+            .nav-center a {
+                font-size: 0.95rem;
+                /* Меньший шрифт для навигации */
+                padding: 6px 0;
+            }
+
+            .lang-switch {
+                gap: 8px;
+                /* Уменьшенный промежуток */
+            }
+
+            .lang-switch a {
+                font-size: 0.85rem;
+                /* Меньший шрифт для переключателя языка */
+                padding: 4px 8px;
+            }
+
+            .login-button {
+                font-size: 0.85rem;
+                /* Меньший шрифт кнопки входа */
+                padding: 5px 12px;
+            }
+
+            .door-icon {
+                width: 16px;
+                /* Меньшая иконка */
+                height: 16px;
+            }
+
+            main {
+                padding: 16px;
+                /* Уменьшенные отступы для main */
+            }
+
+            #discoverYourselfSection,
+            #aboutSection {
+                padding: 6px;
+                /* Уменьшенные отступы для секций */
+            }
+
+            #discoverYourselfTitle {
+                font-size: 2rem;
+                /* Меньший заголовок */
+            }
+
+            #discoverYourselfSubtitle {
+                font-size: 1.2rem;
+                /* Меньший подзаголовок */
+            }
+
+            #discoverYourselfDescription,
+            #aboutDescription,
+            #aboutHistory,
+            #testImportantInfo {
+                font-size: 0.9rem;
+                /* Меньший шрифт для текста */
+            }
+
+            .grid {
+                gap: 4px;
+                /* Уменьшенный промежуток в сетке */
+            }
+
+            .grid>div {
+                padding: 4px;
+                /* Уменьшенные отступы для карточек */
+            }
+
+            .grid>div span {
+                font-size: 1.5rem;
+                /* Меньший шрифт для номеров */
+            }
+
+            .grid>div p {
+                font-size: 0.85rem;
+                /* Меньший шрифт для текста в карточках */
+            }
+
+            #startTestButtonHero,
+            #startTestButton {
+                font-size: 0.9rem;
+                /* Меньший шрифт для кнопок */
+                padding: 6px 12px;
+            }
+
+            .site-footer {
+                padding: 2rem 1rem;
+            }
+
+            .footer-logo {
+                width: 120px;
+                margin-bottom: 0.8rem;
+            }
+
+            .footer-brand p {
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            .footer-col a {
+                font-size: 0.85rem;
+            }
+
+            .footer-contact p {
+                font-size: 0.85rem;
+            }
+
+            .footer-social {
+                gap: 12px;
+            }
+
+            .footer-social a svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2c66f9',
+                        secondary: '#1a3fc1'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        mont: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-inter bg-white text-gray-800">
+    <header>
+        <button class="menu-toggle">☰</button>
+        <div class="header-container">
+            <div class="logo">Rönesans Danışmanlık</div>
+            <nav class="nav-center">
+                <a href="index-en.html">Home</a>
+                <a href="about-en.html">About Test</a>
+                <a href="aboutme-en.html">About Me</a>
+                <a href="#blog">Blog</a>
+            </nav>
+            <div class="lang-switch" id="langSwitch">
+                <a href="index-en.html" data-lang="en" class="active">Eng</a>
+                <a href="index-ru.html" data-lang="ru">Рус</a>
+                <a href="index.html" data-lang="tr">Türkçe</a>
+                <a href="/login" class="login-button">
+                    <svg class="door-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M14.5 12a.75.75 0 0 1 .75-.75h4.69l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.75 2.75a.75.75 0 0 1 0 1.06l-2.75 2.75a.75.75 0 1 1-1.06-1.06l1.22-1.22H15.25A.75.75 0 0 1 14.5 12z" />
+                        <path
+                            d="M3 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V4H5v16h8v-2a1 1 0 1 1 2 0v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3z" />
+                    </svg>
+                    Login
+                </a>
+            </div>
+            <button id="burgerBtn" class="burger-btn" aria-label="Открыть меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div id="overlay" class="overlay"></div>
+        <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
+            <ul>
+                <li><a href="index-en.html">Home</a></li>
+                <li><a href="about-en.html">About Test</a></li>
+                <li><a href="aboutme-en.html">About Me</a></li>
+                <li><a href="#blog">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-24">
+        <section id="discoverYourselfSection"
+            class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 rounded-3xl shadow-xl p-10 mb-16 transition-all duration-500">
+            <h1 id="discoverYourselfTitle"
+                class="text-5xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-4 animate-fade-in">
+                Discover Your True Self
+            </h1>
+            <h2 id="discoverYourselfSubtitle"
+                class="text-2xl font-semibold text-center text-gray-800 mb-6 animate-fade-in delay-100">
+                Take the most accurate and reliable personality test
+            </h2>
+            <p id="discoverYourselfDescription"
+                class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-10 animate-fade-in delay-200">
+                You are a unique individual with personal traits that are exclusive to you. Some of these traits help
+                you achieve more, while others hinder your potential.
+            </p>
+            <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
+                Our test will help you:
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div id="benefit1"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    <span class="block text-3xl font-bold text-primary mb-3">01.</span>
+                    <p class="text-gray-700">Identify your problem areas and discover your levels of happiness,
+                        confidence, and resilience.</p>
+                </div>
+                <div id="benefit2"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    <span class="block text-3xl font-bold text-primary mb-3">02.</span>
+                    <p class="text-gray-700">Understand how your personal traits affect your relationships with others.
+                    </p>
+                </div>
+                <div id="benefit3"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                    <span class="block text-3xl font-bold text-primary mb-3">03.</span>
+                    <p class="text-gray-700">Learn your strengths and use them to achieve more.</p>
+                </div>
+            </div>
+            <h3 id="discoverYourselfInstructionsTitle" class="text-2xl font-bold text-center mt-16 mb-6 text-gray-800">
+                How to complete the test:
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div id="testInstruction1"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                    <span class="block text-2xl font-bold text-primary mb-2">01.</span>
+                    <p class="text-gray-700">Understand each question. Answer all questions to get results.</p>
+                </div>
+                <div id="testInstruction2"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                    <span class="block text-2xl font-bold text-primary mb-2">02.</span>
+                    <p class="text-gray-700">Answer quickly. Don’t overthink the questions.</p>
+                </div>
+                <div id="testInstruction3"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                    <span class="block text-2xl font-bold text-primary mb-2">03.</span>
+                    <p class="text-gray-700">Answer based on your current state, not the past.</p>
+                </div>
+                <div id="testInstruction4"
+                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                    <span class="block text-2xl font-bold text-primary mb-2">04.</span>
+                    <p class="text-gray-700">Minimize "Maybe" answers — fewer "Maybe" answers lead to higher accuracy.
+                    </p>
+                </div>
+            </div>
+            <div class="mt-10 text-center">
+                <a href="mmpi-test-en.html" id="startTestButtonHero"
+                    class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-play mr-2"></i> Start the Test
+                </a>
+            </div>
+        </section>
+        <section id="aboutSection"
+            class="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 p-10 rounded-3xl shadow-xl mb-16 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none z-0">
+                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 320" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#f3f4f6" fill-opacity="0.3"
+                        d="M0,160L60,176C120,192,240,224,360,240C480,256,600,256,720,240C840,224,960,192,1080,165.3C1200,139,1320,117,1380,128L1440,139L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
+                    </path>
+                </svg>
+            </div>
+            <div class="relative z-10">
+                <h1 id="aboutTitle"
+                    class="text-4xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-6 animate-fade-in">
+                    About the MMPI Test
+                </h1>
+                <p id="aboutDescription"
+                    class="text-gray-700 text-lg text-center max-w-3xl mx-auto mb-8 animate-fade-in delay-100">
+                    The Minnesota Multiphasic Personality Inventory (MMPI) is a psychological test used to assess
+                    personality and detect psychopathology. It is used in clinical psychology, psychiatry, and human
+                    resources.
+                </p>
+                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
+                    History of the Test
+                </h3>
+                <p id="aboutHistory"
+                    class="text-gray-700 text-lg text-center w-full mx-auto mb-8 animate-fade-in delay-100">
+                    First published in 1943 by Stark Hathaway and J. Charnley McKinley, it consists of 566 statements.
+                    Responses: "Yes," "No," "Don’t know." It covers emotions, attitudes, and health. In the 1930s,
+                    psychological diagnostics faced significant challenges. Psychiatrists and psychologists of that time
+                    often relied on subjective methods, such as clinical interviews, which were unreliable and dependent
+                    on the specialist’s experience. There was no universal tool that could objectively assess
+                    personality traits and identify psychopathological conditions. In this context, Stark Hathaway, a
+                    clinical psychologist, and J. Charnley McKinley, a neuropsychiatrist, began working on a new test at
+                    the University of Minnesota. Their goal was ambitious: to create a standardized questionnaire that
+                    could not only diagnose psychiatric disorders but also account for individual personality traits.
+                    Unlike other tests of the time, which often focused on a single aspect (e.g., depression), the MMPI
+                    was designed to cover a wide range of psychological conditions. Hathaway and McKinley wanted the
+                    test to be empirical—based on data rather than theoretical assumptions.
+                </p>
+                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
+                    Test Features
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div id="feature1"
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
+                            <span class="text-2xl">🌐</span> Multilingual Support
+                        </h3>
+                        <p class="text-gray-700 mt-2">Turkish, English, Russian interface.</p>
+                    </div>
+                    <div id="feature2"
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
+                            <span class="text-2xl">♂️</span> Gender Factor
+                        </h3>
+                        <p class="text-gray-700 mt-2">Different forms for men and women.</p>
+                    </div>
+                    <div id="feature3"
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
+                            <span class="text-2xl">📊</span> 10 Main Scales
+                        </h3>
+                        <p class="text-gray-700 mt-2">Assessment of depression, paranoia, introversion, etc.</p>
+                    </div>
+                    <div id="feature4"
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
+                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
+                            <span class="text-2xl">📈</span> Validity Scales
+                        </h3>
+                        <p class="text-gray-700 mt-2">L, F, K scales — reliability and protection.</p>
+                    </div>
+                </div>
+                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
+                    How to Take the Test
+                </h3>
+                <ol class="list-decimal list-inside text-gray-700 text-lg space-y-2 mb-10">
+                    <li id="instruction1">Fill out the form: gender, date of birth, education.</li>
+                    <li id="instruction2">Choose honestly: Yes / No / Don’t know.</li>
+                    <li id="instruction3">Upon completion, receive T-scores and a graph.</li>
+                </ol>
+                <h3 id="testImportantTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
+                    IMPORTANT INFORMATION ABOUT THE MINNESOTA MULTIPHASIC PERSONALITY INVENTORY (MMPI)
+                </h3>
+                <p id="testImportantInfo" class="text-gray-700 text-lg w-full mx-auto mb-8 animate-fade-in delay-100">
+                    <strong>The ideal time to complete the test is 90 minutes.</strong><br><br>
+                    Read each question and decide whether it is TRUE or FALSE based on YOUR SITUATION. Your answers
+                    should be true or false depending on your circumstances. Remember that you are expressing your own
+                    opinion about yourself. Try to answer all questions if possible. Ensure that the number of
+                    unanswered questions does not exceed 10, otherwise the test will not be considered valid.<br><br>
+                    <strong>Important Information About the Test:</strong><br>
+                    • This test was developed based on a unique synthesis of modern psychology and traditional human
+                    models, with its validity and reliability recognized worldwide.<br>
+                    • The test’s ability to reflect a person’s personality depends on the objectivity of its
+                    administration, the sincerity of the answers, and the individual’s level of self-awareness.
+                    Inconsistent answers may render the test invalid, resulting in an invalid profile assessment.<br>
+                    • The information obtained from this test serves as a map, illustrating a person’s attitudes,
+                    perception of life, inner world, and the dynamics underlying their behavior, but it is not the
+                    person themselves.
+                </p>
+                <div class="text-center">
+                    <a href="mmpi-test-en.html" id="startTestButton"
+                        class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                        <i class="fas fa-play mr-2"></i> Start the Test
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="2025-07-03_19h51_38.png" alt="Logo" class="footer-logo" />
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <a href="#">Home</a>
+                    <a href="#">Tour</a>
+                    <a href="#">Catalog</a>
+                    <a href="#">Prices</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Market</a>
+                    <a href="#">Services</a>
+                    <a href="#">Explore</a>
+                    <a href="#">Podcast</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">FAQ</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Contacts</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-col">
+                    <a href="#">Partners</a>
+                    <a href="#">GDPR</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <p><strong>+7 123 456 7890</strong></p>
+                <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+                <p>Dudulu St., 22, Turkey</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100c27.6142 0 50-22.3858 50-50S77.6142 0 50 0 0 22.3858 0 50s22.3858 50 50 50Zm3.431-73.9854c-2.5161.0701-5.171.6758-7.0464 2.4577-1.5488 1.4326-2.329 3.5177-2.5044 5.602-.0534 1.4908-.0458 2.9855-.0382 4.4796.0058 1.1205.0115 2.2407-.0085 3.3587-.6888.005-1.3797.0036-2.0709.0021-.9218-.0019-1.8441-.0038-2.7626.0096 0 .8921.0013 1.7855.0026 2.6797.0026 1.791.0052 3.5853-.0026 5.3799.9185.0134 1.8409.0115 2.7627.0096.6912-.0015 1.382-.0029 2.0708.0021.0155 3.5565.0127 7.1128.0098 10.669-.0036 4.4452-.0072 8.8903.0252 13.3354 1.8903-.0134 3.7765-.0115 5.6633-.0095 1.4152.0014 2.8306.0028 4.2484-.0022.0117-4.0009.0088-7.9986.0058-11.9963-.0029-3.9979-.0058-7.9957.0059-11.9964.9533-.005 1.9067-.0036 2.86-.0021 1.2713.0019 2.5425.0038 3.8137-.0096.396-2.679.7335-5.3814.9198-8.0947-1.2576-.0058-2.5155-.0058-3.7734-.0058-1.2578 0-2.5157 0-3.7734-.0059 0-.4689-.0007-.9378-.0014-1.4066-.0022-1.4063-.0044-2.8123.0131-4.2188.198-1.0834 1.3158-1.9104 2.3992-1.8403h5.1476c.0117-2.8069.0117-5.602 0-8.4089-.6636 0-1.3273-.0007-1.9911-.0014-1.9915-.0022-3.9832-.0044-5.975.0131Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="X / Twitter" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M24 48C37.2548 48 48 37.2548 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.2548 10.7452 48 24 48ZM33.3482 14L25.9027 22.4686H25.9023L34 34H28.0445L22.5915 26.2348L15.7644 34H14L21.8082 25.1193L14 14H19.9555L25.119 21.3532L31.5838 14H33.3482ZM22.695 24.1101L23.4861 25.2173V25.2177L28.8746 32.7594H31.5847L24.9813 23.5172L24.1902 22.4099L19.1103 15.2997H16.4002L22.695 24.1101Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" target="_blank">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M50 100C77.6142 100 100 77.6142 100 50C100 22.3858 77.6142 0 50 0C22.3858 0 0 22.3858 0 50C0 77.6142 22.3858 100 50 100ZM25 39.3918C25 31.4558 31.4566 25 39.3918 25H60.6082C68.5442 25 75 31.4566 75 39.3918V60.8028C75 68.738 68.5442 75.1946 60.6082 75.1946H39.3918C31.4558 75.1946 25 68.738 25 60.8028V39.3918ZM36.9883 50.0054C36.9883 42.8847 42.8438 37.0922 50.0397 37.0922C57.2356 37.0922 63.0911 42.8847 63.0911 50.0054C63.0911 57.1252 57.2356 62.9177 50.0397 62.9177C42.843 62.9177 36.9883 57.1252 36.9883 50.0054ZM41.7422 50.0054C41.7422 54.5033 45.4641 58.1638 50.0397 58.1638C54.6153 58.1638 58.3372 54.5041 58.3372 50.0054C58.3372 45.5066 54.6145 41.8469 50.0397 41.8469C45.4641 41.8469 41.7422 45.5066 41.7422 50.0054ZM63.3248 39.6355C65.0208 39.6355 66.3956 38.2606 66.3956 36.5646C66.3956 34.8687 65.0208 33.4938 63.3248 33.4938C61.6288 33.4938 60.2539 34.8687 60.2539 36.5646C60.2539 38.2606 61.6288 39.6355 63.3248 39.6355Z"
+                                fill="#fff" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burgerBtn');
+            const mobile = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('overlay');
+
+            console.log('menu init:', { burger, mobile, overlay });
+
+            if (!burger || !mobile || !overlay) {
+                console.error('one or more elements missing: burger/mobile/overlay');
+                return;
+            }
+
+            function openMenu() {
+                burger.classList.add('active');
+                mobile.classList.add('active');   // совпадает с твоим CSS #mobileMenu.active
+                overlay.classList.add('active');  // совпадает с твоим CSS #overlay.active
+                document.body.style.overflow = 'hidden';
+                console.log('menu opened');
+            }
+
+            function closeMenu() {
+                burger.classList.remove('active');
+                mobile.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log('menu closed');
+            }
+
+            burger.addEventListener('click', (e) => {
+                // если кнопка внутри формы — предотвратим submit
+                if (e) e.preventDefault();
+                const isOpen = mobile.classList.contains('active');
+                console.log('burger clicked, isOpen=', isOpen);
+                isOpen ? closeMenu() : openMenu();
+            });
+
+            overlay.addEventListener('click', closeMenu);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobile.classList.contains('active')) closeMenu();
+            });
+
+            // если окно стало большим (десктоп) — автоматически закрывать меню
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 900 && mobile.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
