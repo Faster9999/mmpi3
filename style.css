@@ -1602,62 +1602,60 @@ button:hover {
         flex: 1 1 100%;
     }
 
+    /* Align content to center */
     #intro .test-form {
         text-align: center;
-        flex-direction: column;
         padding: 20px;
     }
 
-    #intro .form-group {
-        flex: 1 1 100%;
-        margin-bottom: 15px;
-    }
-
-    #intro .consent-group {
-        flex: 1 1 100%;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    #intro .form-actions {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #intro .btn {
-        max-width: 100%;
-        padding: 10px 20px;
-        font-size: 0.95rem;
-    }
-
-    #intro .lang-select {
-        max-width: 100%;
-        padding: 10px;
-        font-size: 0.95rem;
-    }
-
+    /* Form title adjustments */
     #intro .form-title {
         font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #1e3a8a;
+        font-weight: 600;
     }
 
-    #intro .form-group label {
-        font-size: 0.95rem;
+    /* Form group adjustments */
+    #intro .form-group {
+        margin-bottom: 15px;
     }
 
+    /* Form input styling */
     #intro .form-group input,
     #intro .form-group select {
-        padding: 10px;
-        font-size: 0.95rem;
+        padding: 12px 15px;
+        font-size: 1rem;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        background-color: #f9faff;
+        margin-bottom: 15px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
+    /* Adjust consent checkbox size */
     #intro .consent-group input[type="checkbox"] {
         width: 20px;
         height: 20px;
     }
 
-    #intro .consent-label {
-        font-size: 0.9rem;
+    /* Action button styling */
+    #intro .form-actions .btn {
+        padding: 12px 25px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #3b82f6, #1e40af);
+        color: #fff;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    #intro .form-actions .btn:hover {
+        background: linear-gradient(90deg, #1e40af, #3b82f6);
+        transform: translateY(-2px);
     }
 }
 
@@ -1760,31 +1758,24 @@ button:hover {
     }
 
     #intro .test-form {
-        text-align: center;
-        padding: 15px;
+        padding: 10px;
     }
 
     #intro .form-title {
-        font-size: 1.6rem;
-    }
-
-    #intro .form-group label {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
     }
 
     #intro .form-group input,
     #intro .form-group select {
-        padding: 8px;
+        padding: 8px 12px;
         font-size: 0.9rem;
     }
 
-    #intro .consent-group input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-    }
-
-    #intro .consent-label {
-        font-size: 0.85rem;
+    #intro .form-actions .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+        width: 100%;
     }
 
     .site-footer {
