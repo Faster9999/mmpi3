@@ -1,11 +1,12 @@
 let currentPageLang;
-let currentLanguage = localStorage.getItem('selectedLanguage') || 'tr'; // По умолчанию турецкий
+let currentLanguage;   // текущий язык интерфейса
 
 // Функция установки языка
-function setLanguage(lang) {
-    console.log(`Установка языка: ${lang}`);
+function setLanguage(lang, save = true) {
     currentLanguage = lang;
-    localStorage.setItem('selectedLanguage', lang);
+    if (save) {
+        localStorage.setItem('selectedLanguage', lang);
+    }
     changeLanguage();
 }
 
@@ -113,7 +114,12 @@ function changeLanguage() {
         }
     };
     const t = translations[currentLanguage];
-    document.title = t.title || 'Psikolog';
+    if (!t) return;
+
+    // Заголовок
+    document.title = t.title || 'Psychology';
+
+    // Навигация
     const navLinks = document.querySelectorAll('.nav-center a');
     if (navLinks.length >= 4) {
         navLinks[0].textContent = t.home;
@@ -121,11 +127,18 @@ function changeLanguage() {
         navLinks[2].textContent = t.aboutMe;
         navLinks[3].textContent = t.blog;
     }
+
+    // Кнопка входа
     const loginButton = document.querySelector('.login-button');
     if (loginButton) {
         loginButton.lastChild.textContent = ` ${t.login}`;
     }
-    // Обновление активного языка в lang-switch
+
+    updateActiveLangButton();
+}
+
+// Подсветка активного языка
+function updateActiveLangButton() {
     const langSwitch = document.getElementById('langSwitch');
     if (langSwitch) {
         langSwitch.querySelectorAll('a[data-lang]').forEach(link => {
@@ -134,68 +147,52 @@ function changeLanguage() {
     }
 }
 
-// Обработчики событий
+// ---------------------- MAIN ----------------------
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing main.js');
-    const header = document.querySelector('header');
-    const body = document.querySelector('body');
-    const updatePadding = () => {
-        body.style.paddingTop = `${header.offsetHeight}px`;
-    };
-    updatePadding();
-    window.addEventListener('resize', updatePadding);
 
-    const langSwitch = document.getElementById('langSwitch');
+    const fileName = window.location.pathname.split('/').pop();
+    const savedLang = localStorage.getItem('selectedLanguage');
 
-    // Определяем язык на основе имени файла
-    const fileName = window.location.pathname.split('/').pop() || 'index.html';
-    if (fileName === 'index.html') {
-        currentPageLang = 'tr';
-    } else if (fileName === 'index-en.html') {
-        currentPageLang = 'en';
-    } else if (fileName === 'index-ru.html') {
-        currentPageLang = 'ru';
+    if (savedLang) {
+        currentPageLang = savedLang;
     } else {
-        currentPageLang = 'tr'; // По умолчанию турецкий
+        if (fileName === 'index.html') {
+            currentPageLang = 'tr';
+        } else if (fileName === 'index-en.html') {
+            currentPageLang = 'en';
+        } else if (fileName === 'index-ru.html') {
+            currentPageLang = 'ru';
+        } else {
+            currentPageLang = 'ru'; // дефолт
+        }
     }
 
-    // Используем сохраненный язык или currentPageLang
-    currentLanguage = localStorage.getItem('selectedLanguage') || currentPageLang;
-    setLanguage(currentLanguage);
+    setLanguage(currentPageLang, false);
 
     // Обработчик переключения языка
+    const langSwitch = document.getElementById('langSwitch');
     if (langSwitch) {
         langSwitch.querySelectorAll('a[data-lang]').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const newLang = link.getAttribute('data-lang');
-                localStorage.setItem('selectedLanguage', newLang);
-                setLanguage(newLang);
+                setLanguage(newLang); // сохраняем в localStorage
                 window.location.href = link.getAttribute('href');
             });
-            link.classList.toggle('active', link.getAttribute('data-lang') === currentLanguage);
         });
     }
 
-    // Мобильное меню
-    const menuToggle = document.querySelector('.menu-toggle');
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            document.querySelector('.nav-center').classList.toggle('active');
-        });
-    }
 
     // Прокрутка хедера
     window.addEventListener('scroll', () => {
         document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // IntersectionObserver для анимации секций
+    // Анимация секций
     const sections = document.querySelectorAll('.section');
-    console.log('Found sections:', sections.length);
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            console.log('IntersectionObserver: section', entry.target, 'visible:', entry.isIntersecting);
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             }
