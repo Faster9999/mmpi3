@@ -1424,29 +1424,44 @@ button:hover {
 /* Адаптив */
 @media(max-width:768px) {
     #questionContainer {
-        width: 95%;
-        max-width: 100%;
-        margin: 100px auto 30px;
-        padding: 25px 20px;
-        border-radius: 15px;
+        min-height: 220px;
+        /* фиксированная высота блока */
+        padding: 20px;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* текст сверху, кнопки снизу */
+    }
+
+    #questionText {
+        flex: 1;
+        overflow-y: auto;
+        /* прокрутка только текста */
+        max-height: 130px;
+        padding-right: 6px;
         font-size: 1rem;
-        text-align: left;
-    }
-
-    .question-number {
-        font-size: 22px;
-        margin-bottom: 10px;
-    }
-
-    .question-text {
-        font-size: 18px;
         line-height: 1.5;
     }
 
-    .answer-btn {
-        min-width: 120px;
-        padding: 12px 20px;
-        font-size: 1rem;
+    .answer-buttons {
+        display: flex;
+        justify-content: space-around;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .answer-buttons button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .answer-buttons button:active {
+        transform: scale(0.95);
     }
 
     .burger-btn {
@@ -1652,31 +1667,25 @@ button:hover {
 
 @media (max-width: 375px) {
     #questionContainer {
-        width: 100%;
-        margin: 80px auto 20px;
-        padding: 20px 15px;
+        min-height: 200px;
+        padding: 16px;
         border-radius: 12px;
+    }
+
+    #questionText {
+        max-height: 110px;
         font-size: 0.95rem;
+        line-height: 1.4;
     }
 
-    .question-number {
-        font-size: 20px;
+    .answer-buttons {
+        gap: 8px;
     }
 
-    .question-text {
-        font-size: 16px;
-    }
-
-    .answer-btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 0.95rem;
+    .answer-buttons button {
+        font-size: 0.9rem;
+        padding: 10px;
         border-radius: 8px;
-    }
-
-    #answerOptions {
-        flex-direction: column;
-        gap: 12px;
     }
 
     body {
