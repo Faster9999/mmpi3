@@ -1,7 +1,9 @@
 let currentPageLang;
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'tr'; // По умолчанию турецкий
 
 // Функция установки языка
 function setLanguage(lang) {
+    console.log(`Установка языка: ${lang}`);
     currentLanguage = lang;
     localStorage.setItem('selectedLanguage', lang);
     changeLanguage();
@@ -85,7 +87,7 @@ function changeLanguage() {
             aboutTitle: 'MMPI Testi Hakkında',
             aboutDescription: 'Minnesota Çok Yönlü Kişilik Envanteri (MMPI), kişilik özelliklerini değerlendirmek ve psikopatolojik durumları belirlemek için tasarlanmış bir psikolojik testtir. Klinik psikoloji, psikiyatri ve diğer alanlarda teşhis ve kişilik araştırmaları için yaygın olarak kullanılır.',
             aboutHistoryTitle: 'Testin Tarihi',
-            aboutHistory: 'MMPI, 1943 yılında Starke Hathaway ve J. Charnley McKinley tarafından ilk kez yayınlandı. Test, 566 ifadeden oluşur ve katılımcı bu ifadelere "Evet," "Hayır" veya "Bilmiyorum" şeklinde yanıt verir. Sorular, duygusal durum, sosyal tutumlar ve fiziksel sağlık gibi çeşitli kişilik yönlerini kapsar.',
+            aboutHistory: 'MMPI, 1943 yılında Starke Hathaway ve J. Charnley McKinley tarafından ilk kez yayınlandı. Test, 566 ifadeden oluşur ve katılımcı bu ifadelere "Evetទ4" "Hayır" veya "Bilmiyorum" şeklinde yanıt verir. Sorular, duygusal durum, sosyal tutumlar ve fiziksel sağlık gibi çeşitli kişilik yönlerini kapsar.',
             aboutFeatures: 'Test Özellikleri',
             feature1: 'Çok dilli destek: Rusça, İngilizce ve Türkçe olarak mevcut.',
             feature2: 'Cinsiyete özel sorular: Erkekler ve kadınlar için uyarlanmış.',
@@ -111,7 +113,7 @@ function changeLanguage() {
         }
     };
     const t = translations[currentLanguage];
-    document.title = t.title || 'Психолог';
+    document.title = t.title || 'Psikolog';
     const navLinks = document.querySelectorAll('.nav-center a');
     if (navLinks.length >= 4) {
         navLinks[0].textContent = t.home;
@@ -135,11 +137,18 @@ function changeLanguage() {
 // Обработчики событий
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing main.js');
+    const header = document.querySelector('header');
+    const body = document.querySelector('body');
+    const updatePadding = () => {
+        body.style.paddingTop = `${header.offsetHeight}px`;
+    };
+    updatePadding();
+    window.addEventListener('resize', updatePadding);
 
     const langSwitch = document.getElementById('langSwitch');
 
-    const fileName = window.location.pathname.split('/').pop();
-
+    // Определяем язык на основе имени файла
+    const fileName = window.location.pathname.split('/').pop() || 'index.html';
     if (fileName === 'index.html') {
         currentPageLang = 'tr';
     } else if (fileName === 'index-en.html') {
@@ -147,10 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (fileName === 'index-ru.html') {
         currentPageLang = 'ru';
     } else {
-        currentPageLang = 'ru'; // дефолт
+        currentPageLang = 'tr'; // По умолчанию турецкий
     }
 
-    setLanguage(currentPageLang);
+    // Используем сохраненный язык или currentPageLang
+    currentLanguage = localStorage.getItem('selectedLanguage') || currentPageLang;
+    setLanguage(currentLanguage);
 
     // Обработчик переключения языка
     if (langSwitch) {
@@ -162,11 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setLanguage(newLang);
                 window.location.href = link.getAttribute('href');
             });
-            if (link.getAttribute('data-lang') === currentLanguage) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
+            link.classList.toggle('active', link.getAttribute('data-lang') === currentLanguage);
         });
     }
 
