@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (fileName === 'index-ru.html') {
             currentPageLang = 'ru';
         } else {
-            currentPageLang = 'ru'; // дефолт
+            currentPageLang = 'tr'; // дефолт
         }
     }
 
