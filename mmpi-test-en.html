@@ -53,7 +53,7 @@
             <h1 class="form-title">Start Test</h1>
             <div class="form-group">
                 <label for="birthDate" id="birthDateLabel">Date of Birth <span class="required-star">*</span></label>
-                <input type="text" id="birthDate" name="birthDate" placeholder="DD/MM/YYYY">
+                <input type="text" id="birthDate" name="birthDate" placeholder="DD.MM.YYYY">
                 <div class="error" id="birthDateError"></div>
             </div>
             <div class="form-group">
@@ -149,9 +149,25 @@
         console.log('Язык установлен в localStorage: en');
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6-beta.37/inputmask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="questions.js"></script>
     <script src="script.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const input = document.getElementById('birthDate');
+
+            input.addEventListener('input', (event) => {
+                let value = input.value.replace(/[^\d]/g, ''); // Убираем все символы, кроме цифр
+                if (value.length > 2 && value.length < 5) {
+                    value = value.slice(0, 2) + '.' + value.slice(2); // Добавляем точку после 2 цифр
+                } else if (value.length > 4) {
+                    value = value.slice(0, 2) + '.' + value.slice(2, 4) + '.' + value.slice(4, 8); // Добавляем точку после 4 цифр
+                }
+                input.value = value; // Устанавливаем отформатированное значение обратно в поле
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burger = document.getElementById('burgerBtn');
