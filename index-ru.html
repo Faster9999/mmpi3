@@ -891,12 +891,32 @@
                 /* Устанавливаем ряд */
                 justify-content: space-between;
                 align-items: center;
-                padding: 10px 15px;
+                padding-top: 0;
+                /* Убираем лишний отступ сверху */
             }
 
             body {
-                padding-top: 60px;
-                /* уменьшили отступ сверху */
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+            }
+
+            #intro {
+                padding-top: 0;
+                margin-top: 0;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                height: 100vh;
+                /* Устанавливаем высоту на весь экран */
             }
 
             .section .hero {
