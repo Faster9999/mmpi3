@@ -1424,31 +1424,27 @@ button:hover {
 /* Адаптив */
 @media(max-width:768px) {
     #questionContainer {
-        min-height: 220px;
-        /* фиксированная высота блока */
         padding: 20px;
         border-radius: 16px;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        /* текст сверху, кнопки снизу */
+        align-items: stretch;
     }
 
     #questionText {
-        flex: 1;
-        overflow-y: auto;
-        /* прокрутка только текста */
-        max-height: 130px;
-        padding-right: 6px;
         font-size: 1rem;
         line-height: 1.5;
+        margin-bottom: 20px;
+        /* место для кнопок */
+        word-wrap: break-word;
+        /* перенос длинных слов */
     }
 
     .answer-buttons {
         display: flex;
         justify-content: space-around;
         gap: 10px;
-        margin-top: 15px;
+        margin-top: auto;
     }
 
     .answer-buttons button {
@@ -1667,15 +1663,14 @@ button:hover {
 
 @media (max-width: 375px) {
     #questionContainer {
-        min-height: 200px;
         padding: 16px;
         border-radius: 12px;
     }
 
     #questionText {
-        max-height: 110px;
         font-size: 0.95rem;
         line-height: 1.4;
+        margin-bottom: 16px;
     }
 
     .answer-buttons {

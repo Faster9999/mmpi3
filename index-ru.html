@@ -895,15 +895,23 @@
             }
 
             body {
-                padding-top: 116px;
-                /* на мобильных шапка выше, отступ увеличиваем */
+                padding-top: 130px;
+                /* отступ равен высоте шапки + запас */
             }
 
             .section .hero {
+                height: auto;
+                /* пусть блок подстраивается под содержимое */
+                min-height: 100vh;
+                /* чтобы оставался полноэкранным */
+                padding: 140px 20px 60px;
+                /* сверху больше, чтобы текст не залезал под шапку */
                 background-attachment: scroll;
-                /* Отключаем параллакс на мобильных для производительности */
-                animation: none;
-                /* Отключаем анимацию на мобильных */
+            }
+
+            .section .hero-content {
+                padding-top: 0;
+                /* убираем лишний отступ */
             }
 
             .footer-container {
@@ -1027,26 +1035,21 @@
 
         @media (max-width: 375px) {
             body {
-                padding-top: 140px;
-                /* Увеличенный отступ для высокой шапки на русском */
+                padding-top: 150px;
+                /* увеличиваем ещё чуть-чуть */
             }
 
-            .section .hero-content {
-                padding-top: 1.5rem;
-                /* Меньший отступ сверху для текста в hero-content */
-                padding-left: 15px;
-                padding-right: 15px;
+            .section .hero {
+                padding: 160px 15px 60px;
             }
 
             .section .hero-content h1 {
-                font-size: 1.8rem;
-                /* Уменьшенный размер заголовка */
+                font-size: 1.6rem;
                 line-height: 1.3;
             }
 
             .section .hero-content p {
                 font-size: 0.9rem;
-                /* Уменьшенный размер текста */
             }
 
             .section .hero-content .hero-btn {
