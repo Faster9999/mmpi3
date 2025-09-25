@@ -1,31 +1,53 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!doctype html>
+<html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Minnesota Çok Yönlü Kişilik Envanteri (MMPI) — kişilik analizi, tarihçesi, özellikleri, talimatlar.">
-    <title>MMPI Testi Hakkında</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;700&display=swap"
-        rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>5 шагов к самопознанию — Блог</title>
+
+    <!-- Rubik font -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --bg-gradient-start: #e6f0ff;
+            --bg-gradient-end: #eef4ff;
+            --accent-1: #2c66f9;
+            /* primary */
+            --accent-2: #5b35d6;
+            /* secondary */
+            --muted: #6b7280;
+            --card-bg: #ffffff;
+            --page-max: 900px;
+        }
+
+        /* Reset-ish */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         body {
+            margin: 0;
             font-family: 'Montserrat', sans-serif;
-            color: #333;
-            background: #fff;
+            background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: #111827;
             line-height: 1.6;
+            padding-top: 60px;
+
         }
 
-        /* Header */
+
+        a {
+            color: var(--accent-1);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        /* Хедер */
         header {
             position: fixed;
             top: 0;
@@ -69,32 +91,7 @@
             color: #e4e4e4;
         }
 
-        .login-button {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #2c66f9;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 6px 16px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(44, 102, 249, 0.4);
-        }
 
-        .login-button:hover {
-            background: #1a3fc1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(26, 63, 193, 0.4);
-        }
-
-        .door-icon {
-            width: 18px;
-            height: 18px;
-            fill: white;
-        }
 
         .nav-center {
             position: absolute;
@@ -164,19 +161,155 @@
             transform: translateY(-2px);
         }
 
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            color: #fff;
-            background: none;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            right: 25px;
-            top: 15px;
+
+
+        .approach-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
         }
 
-        /* Footer */
+        .approach-text {
+            flex: 1 1 50%;
+        }
+
+        .approach-text h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            color: #111;
+        }
+
+        .approach-text .underline {
+            width: 60px;
+            height: 4px;
+            background-color: #444;
+            margin-bottom: 24px;
+            border-radius: 2px;
+        }
+
+        .approach-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #444;
+            max-width: 90%;
+        }
+
+        .approach-image {
+            flex: 1 1 45%;
+        }
+
+        .approach-image .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .approach-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .approach-image .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            z-index: 1;
+            pointer-events: none;
+            transition: background 0.3s ease;
+        }
+
+        .approach-image .image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .approach-image .image-wrapper:hover .overlay {
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+
+
+        .contact-section {
+            padding: 60px 20px;
+            background-color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .contact-info a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 18px;
+            margin-top: 1rem;
+        }
+
+        .social-icons a svg {
+            transition: transform 0.3s ease;
+        }
+
+        .social-icons a:hover svg {
+            transform: scale(1.1);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .contact-form button {
+            background-color: #1e5fff;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #144ccc;
+        }
+
         .site-footer {
             background: rgb(17, 17, 17);
             color: #fff;
@@ -201,6 +334,12 @@
         .footer-logo {
             width: 150px;
             margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .footer-links {
@@ -258,30 +397,6 @@
             transform: scale(1.1);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.8s ease-out both;
-        }
-
-        .delay-100 {
-            animation-delay: 0.1s;
-        }
-
-        .delay-200 {
-            animation-delay: 0.2s;
-        }
-
         /* По умолчанию (десктоп) */
         .burger-btn,
         .overlay-menu {
@@ -289,8 +404,144 @@
         }
 
 
-        /* Адаптив */
+
+        /* Page container (push down because of fixed header) */
+        .page {
+            max-width: var(--page-max);
+            margin: 0 auto 60px;
+            /* убираем верхний margin, он лишний */
+        }
+
+        /* Article card */
+        .article-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            padding: 28px;
+        }
+
+        /* Hero / title */
+        .article-hero {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .article-hero h1 {
+            margin: 0 0 10px 0;
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            font-weight: 700;
+            /* gradient text */
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .article-hero .meta {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        /* Lead image */
+        .lead-figure {
+            margin: 18px auto 28px;
+            max-width: 820px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(11, 24, 50, 0.08);
+        }
+
+        .lead-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Content */
+        .content p {
+            margin: 0 0 16px 0;
+            color: #1f2937;
+            font-size: 1rem
+        }
+
+        .content h2 {
+            margin: 28px 0 12px;
+            font-size: 1.15rem;
+            color: #0f172a;
+        }
+
+        .content ul {
+            padding-left: 20px;
+            margin: 12px 0 18px
+        }
+
+        .content li {
+            margin: 8px 0
+        }
+
+        /* Callout */
+        .callout {
+            background: linear-gradient(90deg, rgba(44, 102, 249, 0.06), rgba(91, 53, 214, 0.04));
+            border-left: 4px solid rgba(44, 102, 249, 0.18);
+            padding: 14px 16px;
+            border-radius: 8px;
+            margin: 18px 0;
+            color: #0b2446;
+        }
+
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .tag {
+            font-size: 0.85rem;
+            color: var(--accent-2);
+            background: rgba(91, 53, 214, 0.08);
+            padding: 6px 10px;
+            border-radius: 999px
+        }
+
+        .read-more {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform .15s ease;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            transform: translateY(-3px)
+        }
+
         @media(max-width:768px) {
+            body {
+                padding-top: 0px;
+
+            }
+
+
+            .article-card {
+                padding: 18px
+            }
+
+            .article-hero h1 {
+                font-size: 1.5rem
+            }
+
+            .lead-figure {
+                margin: 14px 0 20px
+            }
+
             header {
                 position: relative;
                 width: 100%;
@@ -683,121 +934,70 @@
             }
         }
 
-       
+        .menu-toggle {
+            display: none;
+        }
 
-        /* Responsive для экранов до 375px */
         @media (max-width: 375px) {
-            body {
-                padding-top: 180px;
-                /* Уменьшенный отступ для шапки */
+            .section .hero {
+                padding: 110px 15px 60px;
+                /* уменьшили верхний отступ */
+            }
+
+            .section .hero-content h1 {
+                font-size: 1.6rem;
+                line-height: 1.3;
+            }
+
+            .section .hero-content p {
+                font-size: 0.9rem;
+            }
+
+            .section .hero-content .hero-btn {
+                padding: 12px 24px;
+                /* Уменьшенные отступы для кнопки */
+                font-size: 0.9rem;
+            }
+
+            .features {
+                gap: 20px;
+                /* Меньший отступ между feature */
+            }
+
+            .feature h3 {
+                font-size: 0.9rem;
+                /* Уменьшенный размер заголовков feature */
+            }
+
+            .feature p {
+                font-size: 0.85rem;
+                /* Уменьшенный размер текста feature */
             }
 
             .header-container {
                 padding: 0 10px;
-                /* Уменьшенные отступы */
             }
 
             .logo {
-                font-size: 1.4rem;
-                /* Меньший размер логотипа */
-                height: 30px;
+                font-size: 1.3rem;
+                height: 28px;
             }
 
-            .menu-toggle {
-                font-size: 1.2rem;
-                /* Уменьшенная иконка меню */
-                right: 15px;
-                top: 12px;
-            }
-
-            .nav-center {
-                gap: 10px;
-                /* Меньший промежуток между ссылками */
-            }
 
             .nav-center a {
-                font-size: 0.95rem;
-                /* Меньший шрифт для навигации */
-                padding: 6px 0;
-            }
-
-            .lang-switch {
-                gap: 8px;
-                /* Уменьшенный промежуток */
+                font-size: 0.9rem;
+                padding: 8px 10px;
             }
 
             .lang-switch a {
-                font-size: 0.85rem;
-                /* Меньший шрифт для переключателя языка */
+                font-size: 0.8rem;
                 padding: 4px 8px;
             }
 
-            .login-button {
-                font-size: 0.85rem;
-                /* Меньший шрифт кнопки входа */
-                padding: 5px 12px;
-            }
-
-            .door-icon {
-                width: 16px;
-                /* Меньшая иконка */
-                height: 16px;
-            }
-
-            main {
-                padding: 16px;
-                /* Уменьшенные отступы для main */
-            }
-
-            #discoverYourselfSection,
-            #aboutSection {
-                padding: 6px;
-                /* Уменьшенные отступы для секций */
-            }
-
-            #discoverYourselfTitle {
-                font-size: 2rem;
-                /* Меньший заголовок */
-            }
-
-            #discoverYourselfSubtitle {
-                font-size: 1.2rem;
-                /* Меньший подзаголовок */
-            }
-
-            #discoverYourselfDescription,
-            #aboutDescription,
-            #aboutHistory,
-            #testImportantInfo {
-                font-size: 0.9rem;
-                /* Меньший шрифт для текста */
-            }
-
-            .grid {
-                gap: 4px;
-                /* Уменьшенный промежуток в сетке */
-            }
-
-            .grid>div {
-                padding: 4px;
-                /* Уменьшенные отступы для карточек */
-            }
-
-            .grid>div span {
-                font-size: 1.5rem;
-                /* Меньший шрифт для номеров */
-            }
-
-            .grid>div p {
-                font-size: 0.85rem;
-                /* Меньший шрифт для текста в карточках */
-            }
-
-            #startTestButtonHero,
-            #startTestButton {
-                font-size: 0.9rem;
-                /* Меньший шрифт для кнопок */
-                padding: 6px 12px;
+            .menu-toggle {
+                font-size: 1.3rem;
+                right: 10px;
+                top: 12px;
             }
 
             .site-footer {
@@ -832,26 +1032,9 @@
             }
         }
     </style>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2c66f9',
-                        secondary: '#1a3fc1'
-                    },
-                    fontFamily: {
-                        inter: ['Inter', 'sans-serif'],
-                        mont: ['Montserrat', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="font-inter bg-white text-gray-800">
+<body>
     <!-- Оверлей меню -->
     <div class="overlay-menu" id="overlay-menu">
 
@@ -867,11 +1050,10 @@
                 <a href="aboutme-tr.html">Hakkımda</a>
                 <a href="blog-tr.html">Blog</a>
                 <a href="payments-tr.html">Ödeme</a>
-                <a href="privacy.html">Gizlilik Politikası</a>
+                <a href="privacy-tr.html">Gizlilik Politikası</a>
                 <a href="index.html">Yorumlar</a>
                 <a href="index.html">İletişim</a>
             </nav>
-
             <div class="overlay-footer">
                 <!-- Переключатель языков -->
                 <div class="lang-switch">
@@ -915,227 +1097,100 @@
                 <a href="index.html">Ana Sayfa</a>
                 <a href="about-tr.html">Test Hakkında</a>
                 <a href="aboutme-tr.html">Hakkımda</a>
-                <a href="blog">Blog</a>
+                <a href="blog-tr.html">Blog</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
-                <a href="index-ru.html" data-lang="ru">Рус</a>
+                <a href="index.html" data-lang="tr">Türkçe</a>
                 <a href="index-en.html" data-lang="en">Eng</a>
-                <a href="index.html" data-lang="tr" class="active">Türkçe</a>
+                <a href="index-ru.html" data-lang="ru">Рус</a>
             </div>
-
         </div>
-
     </header>
 
-    <main class="container mx-auto px-4 py-24">
-        <!-- HERO -->
-        <section id="discoverYourselfSection"
-            class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 rounded-3xl shadow-xl p-10 mb-16 transition-all duration-500">
-            <h1 id="discoverYourselfTitle"
-                class="text-5xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-4 animate-fade-in">
-                Gerçek Kendinizi Keşfedin
-            </h1>
-            <h2 id="discoverYourselfSubtitle"
-                class="text-2xl font-semibold text-center text-gray-800 mb-6 animate-fade-in delay-100">
-                En doğru ve güvenilir kişilik testini geçin
-            </h2>
-            <p id="discoverYourselfDescription"
-                class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-10 animate-fade-in delay-200">
-                Siz, yalnızca size özgü kişisel özelliklere sahip benzersiz bir bireysiniz. Bu özelliklerden bazıları
-                daha
-                fazlasını başarmanıza yardımcı olurken, diğerleri potansiyelinizi ortaya çıkarmanızı engeller.
-            </p>
 
-            <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                Testimiz size şunları sağlayacak:
-            </h3>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div id="benefit1"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">01.</span>
-                    <p class="text-gray-700">Sorunlu alanlarınızı öğrenin ve mutluluk, özgüven ve dayanıklılık
-                        seviyenizi
-                        keşfedin.</p>
+    <!-- Sayfa içeriği -->
+    <main class="page" role="main">
+        <article class="article-card" itemscope itemtype="http://schema.org/Article">
+            <section class="article-hero">
+                <div class="meta">Yayın tarihi: <time datetime="2025-09-25">25 Eylül 2025</time> · Okuma süresi ~6 dk
                 </div>
-                <div id="benefit2"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">02.</span>
-                    <p class="text-gray-700">Kişisel özelliklerinizin diğer insanlarla ilişkilerinizi nasıl etkilediğini
-                        anlayın.</p>
-                </div>
-                <div id="benefit3"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">03.</span>
-                    <p class="text-gray-700">Güçlü yönlerinizi öğrenin ve daha fazlasını başarmak için bunları kullanın.
-                    </p>
-                </div>
-            </div>
+                <h1 itemprop="headline">Kendini Keşfetmenin 5 Adımı: Kendini Daha İyi Anlamak</h1>
+                <p class="lead" style="color:var(--muted); max-width:70ch; margin:0 auto">
+                    Davranış kalıplarınızı görmenize, duygusal farkındalığınızı artırmanıza ve daha bilinçli kararlar
+                    almanıza yardımcı olacak pratik ve basit teknikler.
+                </p>
+            </section>
 
-            <h3 id="discoverYourselfInstructionsTitle" class="text-2xl font-bold text-center mt-16 mb-6 text-gray-800">
-                Test nasıl doldurulur:
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div id="testInstruction1"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">01.</span>
-                    <p class="text-gray-700">Her soruyu anlayın. Sonuç almak için tüm soruları cevaplayın.</p>
+            <!-- Kapak görseli -->
+            <figure class="lead-figure" aria-hidden="false">
+                <img src="https://images.unsplash.com/photo-1507878866276-a947ef722fee?q=80&w=1600&auto=format&fit=crop"
+                    alt="Kendini keşif illüstrasyonu — ufka bakan kişi" />
+            </figure>
+
+            <!-- Makale içeriği -->
+            <div class="content" itemprop="articleBody">
+
+                <p><strong>Giriş.</strong> Kendini tanıma bir moda kelime değil, bir beceridir. Uzun terapi seansları
+                    gerektirmez (faydalıdır ama şart değil); düzenlilik ister: farkındalık, dürüstlük ve basit araçlar.
+                    İşte bugün başlayabileceğiniz beş adım.</p>
+
+                <h2>Adım 1 — Düşünce ve duygu günlüğü tutmak</h2>
+                <p>Her gün 5–10 dakikalık kısa notlar tekrar eden temaları görmeye yardımcı olur: ne keyif veriyor,
+                    ne kaygı yaratıyor, hangi durumlar enerjinizi tüketiyor. Sansürsüz yazın — sadece kendiniz için.</p>
+                <div class="callout">
+                    Akşam şu soruları yazmayı deneyin: <em>Bugün minnettar olduğum 3 şey</em> ve
+                    <em>Yarın hedefime yaklaşmamı sağlayacak 1 adım</em>.
                 </div>
-                <div id="testInstruction2"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">02.</span>
-                    <p class="text-gray-700">Hızlı cevap verin. Sorular üzerinde fazla durmayın.</p>
-                </div>
-                <div id="testInstruction3"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">03.</span>
-                    <p class="text-gray-700">Mevcut durumunuza göre cevap verin, geçmişe değil.</p>
-                </div>
-                <div id="testInstruction4"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">04.</span>
-                    <p class="text-gray-700">"Belki" cevaplarını azaltın — daha az "Belki", daha yüksek doğruluk.</p>
-                </div>
-            </div>
 
-            <div class="mt-10 text-center">
-                <a href="mmpi-test.html" id="startTestButtonHero"
-                    class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-play mr-2"></i> Testi Başlat
-                </a>
-            </div>
-        </section>
+                <h2>Adım 2 — Geri bildirim ve gözlem (savunmaya geçmeden)</h2>
+                <p>Yakınlarınızdan ve iş arkadaşlarınızdan sizi nasıl gördüklerini sorun. Savunmaya geçmeden sadece
+                    dinleyin. Başkalarının yansımalarında alışkanlıklarımızın ve tepkilerimizin ipuçları gizlidir.</p>
 
-        <!-- ABOUT -->
-        <section id="aboutSection"
-            class="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 p-10 rounded-3xl shadow-xl mb-16 overflow-hidden">
-
-            <!-- SVG волны фоном -->
-            <div class="absolute inset-0 pointer-events-none z-0">
-                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 320" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#f3f4f6" fill-opacity="0.3"
-                        d="M0,160L60,176C120,192,240,224,360,240C480,256,600,256,720,240C840,224,960,192,1080,165.3C1200,139,1320,117,1380,128L1440,139L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
-                    </path>
-                </svg>
-            </div>
-
-            <div class="relative z-10">
-                <h1 id="aboutTitle"
-                    class="text-4xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-6 animate-fade-in">
-                    MMPI Testi Hakkında
-                </h1>
-
-                <p id="aboutDescription"
-                    class="text-gray-700 text-lg text-center max-w-3xl mx-auto mb-8 animate-fade-in delay-100">
-                    Minnesota Çok Yönlü Kişilik Envanteri (MMPI), kişiliği değerlendirmek ve psikopatolojiyi tespit
-                    etmek
-                    için kullanılan bir psikolojik testtir. Klinik psikoloji, psikiyatri ve insan kaynakları alanlarında
-                    kullanılır.
+                <h2>Adım 3 — Kişilik testleri ve haritaları (etiket değil araç olarak)</h2>
+                <p>MMPI, MBTI veya Big Five gibi profesyonel testler yapılandırılmış bilgi sunar. Sonuçları bir etiket
+                    değil, bir ipucu olarak kullanın. Psikolog ya da danışmanla sonuçları tartışmak gerçek değer katar.
                 </p>
 
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Testin Tarihçesi
-                </h3>
-                <p id="aboutHistory"
-                    class="text-gray-700 text-lg text-center w-full mx-auto mb-8 animate-fade-in delay-100">
-                    İlk olarak 1943 yılında Stark Hathaway ve J. Charnley McKinley tarafından yayınlandı. 566 ifadeden
-                    oluşur. Cevaplar: "Evet", "Hayır", "Bilmiyorum". Duyguları, tutumları ve sağlığı kapsar. 1930'larda
-                    psikolojik teşhis ciddi sorunlarla karşı karşıyaydı. O dönemin psikiyatristleri ve psikologları,
-                    çoğu
-                    zaman uzmanların deneyimine bağlı olan ve güvenilir olmayan klinik görüşmelere dayanıyordu. Objektif
-                    bir şekilde kişilik özelliklerini değerlendirebilecek ve psikopatolojik durumları tespit edebilecek
-                    evrensel bir araç mevcut değildi. Bu bağlamda, Minnesota Üniversitesi'nde klinik psikolog Stark
-                    Hathaway ve nöropsikiyatrist J. Charnley McKinley, yeni bir test üzerinde çalışmaya başladı.
-                    Amaçları iddialıydı: yalnızca psikiyatrik bozuklukları teşhis etmekle kalmayıp aynı zamanda bireysel
-                    kişilik özelliklerini de dikkate alan standart bir anket oluşturmak. O dönemin diğer testlerinden
-                    farklı olarak, genellikle tek bir yönü (örneğin depresyon) ele alan testlerin aksine, MMPI geniş bir
-                    psikolojik durum yelpazesini kapsamalıydı. Hathaway ve McKinley, testin teorik varsayımlara değil,
-                    verilere dayalı ampirik bir yapıda olmasını istedi.
-                </p>
+                <h2>Adım 4 — Farkındalık ve bedenle bağ kurma</h2>
+                <p>Mindfulness, nefes egzersizleri, kısa meditasyonlar ve beden taramaları duygularla ilişkili
+                    bedensel sinyalleri fark etmeyi sağlar. Kaygı ya da öfkenin nerede “oturduğunu” anladığınızda,
+                    bilinçli hareket etmek kolaylaşır.</p>
 
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Testin Özellikleri
-                </h3>
+                <h2>Adım 5 — Hayatta küçük deneyler</h2>
+                <p>Kendini tanımak sadece anlamak değil, denemektir. Küçük bir deney yapın: bir alışkanlığınızı bir
+                    hafta
+                    değiştirin (örneğin daha az sosyal medya, daha çok yürüyüş) ve ruh halinizin, odağınızın ve
+                    ilişkilerinizin nasıl değiştiğini gözlemleyin.</p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                    <!-- Özellik 1 -->
-                    <div id="feature1"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">🌐</span> Çok Dilli Destek
-                        </h3>
-                        <p class="text-gray-700 mt-2">Türkçe, İngilizce, Rusça arayüz.</p>
+                <h2>Kısa rehber — Hemen şimdi başlayın</h2>
+                <ul>
+                    <li>Bir defter veya uygulama edinin, haftada 3–4 kez not alın.</li>
+                    <li>Yakınınızdaki bir kişiden size 3 dürüst geri bildirim vermesini isteyin.</li>
+                    <li>Bir hafta boyunca sabah ve akşam 5 dakikalık nefes egzersizi yapın.</li>
+                    <li>1 küçük deneme seçin ve sonuçları kaydedin.</li>
+                </ul>
+
+                <p style="margin-top:12px">Kendini tanıma bir beceridir ve beceriler pratikle güçlenir. Kendinize karşı
+                    meraklı ve sabırlı olun: değişim zamanla gelir.</p>
+
+                <hr style="margin:28px 0; border:none; border-top:1px solid rgba(15,23,42,0.06)">
+
+                <div class="article-footer">
+                    <div style="margin-bottom: 16px;">
+                        <strong>Yazar:</strong> <span>Rönesans Danışmanlık</span>
                     </div>
-
-                    <!-- Özellik 2 -->
-                    <div id="feature2"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">♂️</span> Cinsiyet Faktörü
-                        </h3>
-                        <p class="text-gray-700 mt-2">Erkekler ve kadınlar için farklı formlar.</p>
+                    <div style="display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+                        <div class="tags" aria-hidden="true">
+                            <span class="tag">öz farkındalık</span>
+                            <span class="tag">psikoloji</span>
+                            <span class="tag">mindfulness</span>
+                        </div>
+                        <a class="read-more" href="blog-tr.html">← Bloga dön</a>
                     </div>
-
-                    <!-- Özellik 3 -->
-                    <div id="feature3"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">📊</span> 10 Ana Ölçek
-                        </h3>
-                        <p class="text-gray-700 mt-2">Depresyon, paranoya, içe dönüklük vb. değerlendirme.</p>
-                    </div>
-
-                    <!-- Özellik 4 -->
-                    <div id="feature4"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">📈</span> Geçerlilik Ölçekleri
-                        </h3>
-                        <p class="text-gray-700 mt-2">L, F, K ölçekleri — güvenilirlik ve koruma.</p>
-                    </div>
-                </div>
-
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Test Nasıl Geçilir
-                </h3>
-
-                <ol class="list-decimal list-inside text-gray-700 text-lg space-y-2 mb-10">
-                    <li id="instruction1">Formu doldurun: cinsiyet, doğum tarihi, eğitim.</li>
-                    <li id="instruction2">Dürüstçe seçin: Evet / Hayır / Bilmiyorum.</li>
-                    <li id="instruction3">Tamamladıktan sonra T-skorları ve grafiği alın.</li>
-                </ol>
-
-                <h3 id="testImportantTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    MİNNESOTA ÇOK YÖNLÜ KİŞİLİK ENVANTERİ (MMPI) HAKKINDA ÖNEMLİ BİLGİLER
-                </h3>
-                <p id="testImportantInfo" class="text-gray-700 text-lg w-full mx-auto mb-8 animate-fade-in delay-100">
-                    <strong>Testin ideal doldurulma süresi 90 dakikadır.</strong><br><br>
-                    Her soruyu okuyarak KENDİ DURUMUNUZA GÖRE DOĞRU YA DA YANLIŞ olup olmadığına karar veriniz. Sorulara
-                    vereceğiniz cevap sizin durumunuza göre doğru veya yanlış olmalıdır. Kendiniz hakkında kendi
-                    kanaatinizi bildireceğinizi unutmayınız. Mümkünse bütün soruları cevaplandırmaya çalışınız. Boş
-                    bıraktığınız cevap sayısının 10’u geçmemesine dikkat ediniz, aksi halde test geçerliliği
-                    sağlanamamış
-                    olacaktır.<br><br>
-                    <strong>Test Hakkında Önemli Bilgilendirme:</strong><br>
-                    • Bu test modern psikolojinin ve geleneksel insan modellerinin özgün bir sentezine dayanarak
-                    hazırlanmış, geçerlilik ve güvenilirliği dünyaca kabul edilmiş bir testtir.<br>
-                    • Testin kişiyi yansıtabilme gücü, testin uygulanmasında gösterilen objektifliğe, sorulara verilen
-                    cevapların samimiyetine ve kişinin kendi hakkındaki farkındalık düzeyine bağlıdır. Tutarsız cevaplar
-                    verilmesi durumunda test geçerliliği sağlanamayarak geçersiz profil değerlendirmesi yapılır.<br>
-                    • Bu testten elde edilecek bilgiler kişinin tutumlarını, yaşamı algılayış biçimini, iç dünyasını,
-                    davranışlarının altında yatan dinamikleri gösteren bir harita niteliğindedir, arazinin kendisi
-                    değildir.
-                </p>
-
-                <div class="text-center">
-                    <a href="mmpi-test.html" id="startTestButton"
-                        class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                        <i class="fas fa-play mr-2"></i> Teste Başla
-                    </a>
                 </div>
             </div>
-        </section>
+        </article>
     </main>
 
     <footer class="site-footer">
@@ -1151,7 +1206,7 @@
                     <a href="#">Fiyatlar</a>
                 </div>
                 <div class="footer-col">
-                    <a href="#">Market</a>
+                    <a href="#">Pazar</a>
                     <a href="#">Hizmetler</a>
                     <a href="#">Keşfet</a>
                     <a href="#">Podcast</a>
@@ -1164,14 +1219,14 @@
                 </div>
                 <div class="footer-col">
                     <a href="#">Ortaklar</a>
-                    <a href="#">GDPR</a>
+                    <a href="#">KVKK</a>
                     <a href="#">Gizlilik Politikası</a>
                 </div>
             </div>
             <div class="footer-contact">
                 <p><strong>+7 123 456 7890</strong></p>
                 <p><a href="mailto:hello@example.com">hello@example.com</a></p>
-                <p>Dudullu Cd. 22, Türkiye</p>
+                <p>Istanbul/Türkiye</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Facebook" target="_blank">
                         <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
@@ -1201,8 +1256,6 @@
         </div>
     </footer>
     <script src="main.js"></script>
-    <script src="testimonials-carousel.js"></script>
-
     <script>
         const burgerBtn = document.getElementById('burger-btn');
         const overlayMenu = document.getElementById('overlay-menu');
@@ -1218,6 +1271,7 @@
             closeIcon.style.display = isOpen ? 'block' : 'none';
         });
     </script>
+
 </body>
 
 </html>

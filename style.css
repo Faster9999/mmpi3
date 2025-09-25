@@ -8,7 +8,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     color: #333;
-    background: #fff;
+    background: linear-gradient(to bottom right, #eef3ff, #ffffff, #dfe6ff);
     line-height: 1.6;
 }
 
@@ -978,7 +978,7 @@ button:hover {
 
 /* Стили для теста MMPI */
 .container {
-    margin-top: 100px;
+
     /* отступ от шапки */
     width: 100%;
     max-width: 600px;
@@ -1299,130 +1299,19 @@ button:hover {
     opacity: 0.9;
 }
 
-/* Бургер */
-.burger-btn {
+/* По умолчанию (десктоп) */
+.burger-btn,
+.overlay-menu {
     display: none;
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1200;
-    width: 48px;
-    height: 48px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    background: linear-gradient(90deg, #2c66f9, #1a3fc1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
 }
-
-.burger-btn span {
-    display: block;
-    width: 22px;
-    height: 3px;
-    border-radius: 2px;
-    background: #fff;
-    transition: all 0.3s ease;
-}
-
-/* Анимация в крестик */
-.burger-btn.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-
-.burger-btn.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.burger-btn.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
-
-
-/* Исправляем мобильное меню */
-#mobileMenu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50vw;
-    /* половина экрана */
-    max-width: 380px;
-    height: 100vh;
-    background: #fff;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
-    padding: 40px 20px;
-    transform: translateX(100%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1100;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Ссылки */
-/* Список меню */
-#mobileMenu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#mobileMenu ul li {
-    margin-bottom: 20px;
-}
-
-#mobileMenu ul li a {
-    display: block;
-    padding: 15px 20px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: #333;
-    transition: all 0.3s ease;
-    background: #f5f5f5;
-}
-
-#mobileMenu ul li a:hover,
-#mobileMenu ul li a.active {
-    background: linear-gradient(90deg, #2c66f9, #1a3fc1);
-    color: #fff;
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(44, 102, 249, 0.3);
-}
-
-/* Для плавного закрытия при клике */
-#mobileMenu ul li a:active {
-    transform: scale(0.97);
-}
-
-#mobileMenu.active {
-    transform: translateX(0);
-}
-
-#overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1099;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-}
-
-#overlay.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-
 
 /* Адаптив */
 @media(max-width:768px) {
+
+
+
+
+
     #questionContainer {
         padding: 20px;
         border-radius: 16px;
@@ -1460,29 +1349,224 @@ button:hover {
         transform: scale(0.95);
     }
 
+
+    header {
+        position: relative;
+        width: 100%;
+        background: rgba(30, 30, 30, 0.75);
+        /* тёмный прозрачный фон */
+        backdrop-filter: blur(8px);
+        /* эффект матового стекла */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        padding: 12px 0;
+    }
+
+    .menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .overlay-footer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .menu-links a {
+        font-size: 1.3rem;
+        text-decoration: none;
+        color: #fff;
+        position: relative;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+
+    .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Анимация появления */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Эффект подчёркивания */
+    .menu-links a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 6px;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background: #fff;
+        transition: width 0.3s ease;
+    }
+
+    .menu-links a:hover::after {
+        width: 60%;
+    }
+
     .burger-btn {
         display: flex;
-        /* Показываем кнопку на мобильных */
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+        /* коричневый */
+        border: none;
+        border-radius: 50% 0 0 50%;
+        /* полукруг слева */
+        padding: 10px 14px;
+        /* внутренние отступы */
+        position: fixed;
+        top: 20px;
+        right: 0;
+        /* прижимаем к правому краю */
+        z-index: 4000;
     }
 
-    body {
-        padding-top: 150px;
-        /* Увеличенный отступ для шапки с раскрытым меню */
+    .burger-btn.active {
+        background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+        /* белый фон при крестике */
+    }
+
+    .burger-btn .burger-icon {
+        display: block;
+    }
+
+    .burger-btn .close-icon {
+        display: none;
+    }
+
+    .overlay-menu.open~.burger-btn .burger-icon {
+        display: none;
+    }
+
+    .overlay-menu.open~.burger-btn .close-icon {
+        display: block;
+    }
+
+    .close-icon.hidden {
+        display: none;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    .overlay-menu {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 15, 15, 0.65);
+        backdrop-filter: blur(15px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(-100%);
+        transition: transform 0.5s ease;
+        z-index: 4000;
+        overflow: hidden;
+        font-family: 'Poppins', sans-serif;
     }
 
 
+    .overlay-menu.open {
+        transform: translateY(0);
+    }
 
-    .container {
-        margin-top: 0;
-        /* Сбрасываем margin-top для точного контроля */
-        width: 90%;
-        height: auto;
-        /* Убираем фиксированную высоту для мобильных */
+    .overlay-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .overlay-header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .overlay-body {
+        width: 100%;
+        max-width: 500px;
+        padding: 40px 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        justify-content: flex-start;
+        /* сверху вниз */
+        height: 100%;
+        overflow-y: auto;
+        /* включаем скролл внутри */
+        scrollbar-width: thin;
+        /* красивый тонкий скролл (Firefox) */
+    }
+
+    .overlay-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .overlay-body::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 3px;
+    }
+
+    .overlay-logo .logo-text {
+        font-family: 'Georgia', serif;
+        font-size: 2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+
+        background: #ffffff;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        animation: fadeIn 1s ease;
+    }
+
+
+    .header-container {
+        flex-direction: row;
+        /* Устанавливаем ряд */
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
     }
 
     .section .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 90px 20px 60px;
+        /* уменьшили верхний отступ */
         background-attachment: scroll;
-        animation: none;
+    }
+
+    .section .hero-content {
+        padding-top: 0;
     }
 
     .footer-container {
@@ -1538,9 +1622,9 @@ button:hover {
     }
 
     .features {
+        display: block;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
     }
 
     .header-container {
@@ -1555,6 +1639,64 @@ button:hover {
         width: 100%;
     }
 
+    .lang-switch a {
+        color: #fff;
+        font-size: 1rem;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.3s ease;
+    }
+
+    .lang-switch a:hover {
+        color: #9ecbff;
+    }
+
+    .lang-switch img {
+        width: 20px;
+        border-radius: 3px;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        /* выравнивание по центру */
+        gap: 20px;
+        width: 100%;
+        /* чтобы блок тянулся на всю ширину */
+        margin-top: 20px;
+    }
+
+    .social-icons a img {
+        width: 28px;
+        height: 28px;
+        filter: invert(1);
+        transition: transform 0.3s ease;
+    }
+
+    .social-icons a:hover img {
+        transform: scale(1.2);
+    }
+
+    /* Анимация */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Запрет скролла фона при открытом меню */
+    body.menu-open {
+        overflow: hidden;
+    }
+
     .nav-center {
         flex-direction: column;
         gap: 15px;
@@ -1563,8 +1705,6 @@ button:hover {
 
     .nav-center.active {
         display: flex;
-        padding-bottom: 20px;
-        /* Увеличенный отступ для меню */
     }
 
     .menu-toggle {
@@ -1581,7 +1721,6 @@ button:hover {
 
     .logo {
         height: 35px;
-        font-size: 1.5rem;
     }
 
     .approach-content {
@@ -1601,6 +1740,9 @@ button:hover {
     .approach-image {
         flex: 1 1 100%;
     }
+
+
+
 
     /* Align content to center */
     #intro .test-form {
@@ -1679,11 +1821,6 @@ button:hover {
         font-size: 0.9rem;
         padding: 10px;
         border-radius: 8px;
-    }
-
-    body {
-        padding-top: 150px;
-        /* Уменьшенный отступ для маленьких экранов */
     }
 
     .container {

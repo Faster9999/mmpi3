@@ -19,7 +19,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
         body {
-            font-family: 'Rubik', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             color: #333;
             background: #fff;
             line-height: 1.6;
@@ -69,32 +69,7 @@
             color: #e4e4e4;
         }
 
-        .login-button {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #2c66f9;
-            color: white;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 6px 16px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 6px rgba(44, 102, 249, 0.4);
-        }
 
-        .login-button:hover {
-            background: #1a3fc1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(26, 63, 193, 0.4);
-        }
-
-        .door-icon {
-            width: 18px;
-            height: 18px;
-            fill: white;
-        }
 
         .nav-center {
             position: absolute;
@@ -746,146 +721,213 @@
             transform: scale(1.1);
         }
 
-        /* Бургер */
-        .burger-btn {
+        /* По умолчанию (десктоп) */
+        .burger-btn,
+        .overlay-menu {
             display: none;
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            z-index: 1200;
-            width: 48px;
-            height: 48px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-            transition: all 0.3s ease;
-        }
-
-        .burger-btn span {
-            display: block;
-            width: 22px;
-            height: 3px;
-            border-radius: 2px;
-            background: #fff;
-            transition: all 0.3s ease;
-        }
-
-        /* Анимация в крестик */
-        .burger-btn.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-
-        .burger-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .burger-btn.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
         }
 
 
-        /* Исправляем мобильное меню */
-        #mobileMenu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 50vw;
-            /* половина экрана */
-            max-width: 380px;
-            height: 100vh;
-            background: #fff;
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
-            padding: 40px 20px;
-            transform: translateX(100%);
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1100;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* Ссылки */
-        /* Список меню */
-        #mobileMenu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #mobileMenu ul li {
-            margin-bottom: 20px;
-        }
-
-        #mobileMenu ul li a {
-            display: block;
-            padding: 15px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 500;
-            color: #333;
-            transition: all 0.3s ease;
-            background: #f5f5f5;
-        }
-
-        #mobileMenu ul li a:hover,
-        #mobileMenu ul li a.active {
-            background: linear-gradient(90deg, #2c66f9, #1a3fc1);
-            color: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(44, 102, 249, 0.3);
-        }
-
-        /* Для плавного закрытия при клике */
-        #mobileMenu ul li a:active {
-            transform: scale(0.97);
-        }
-
-        #mobileMenu.active {
-            transform: translateX(0);
-        }
-
-        #overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1099;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        #overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-
-
-        /* Адаптив */
         /* Адаптив */
         @media(max-width:768px) {
+            header {
+                position: relative;
+                width: 100%;
+                background: rgba(30, 30, 30, 0.75);
+                /* тёмный прозрачный фон */
+                backdrop-filter: blur(8px);
+                /* эффект матового стекла */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                padding: 12px 0;
+            }
+
+            .menu-links {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .overlay-footer {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+
+            .menu-links a {
+                font-size: 1.3rem;
+                text-decoration: none;
+                color: #fff;
+                position: relative;
+                transition: all 0.3s ease;
+                border-radius: 12px;
+            }
+
+            .menu-links a:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-3px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            }
+
+            /* Анимация появления */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Эффект подчёркивания */
+            .menu-links a::after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: 6px;
+                transform: translateX(-50%);
+                width: 0;
+                height: 2px;
+                background: #fff;
+                transition: width 0.3s ease;
+            }
+
+            .menu-links a:hover::after {
+                width: 60%;
+            }
 
             .burger-btn {
                 display: flex;
-                /* Показываем кнопку на мобильных */
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+                /* коричневый */
+                border: none;
+                border-radius: 50% 0 0 50%;
+                /* полукруг слева */
+                padding: 10px 14px;
+                /* внутренние отступы */
+                position: fixed;
+                top: 20px;
+                right: 0;
+                /* прижимаем к правому краю */
+                z-index: 4000;
             }
 
-            .nav-center {
-                display: none;
-                /* Скрываем центральное меню */
+            .burger-btn.active {
+                background: linear-gradient(90deg, #2c66f9, #1a3fc1);
+                /* белый фон при крестике */
             }
 
-            .nav-center.active {
-                display: none;
-                /* Убедимся, что оно не отображается */
+            .burger-btn .burger-icon {
+                display: block;
             }
+
+            .burger-btn .close-icon {
+                display: none;
+            }
+
+            .overlay-menu.open~.burger-btn .burger-icon {
+                display: none;
+            }
+
+            .overlay-menu.open~.burger-btn .close-icon {
+                display: block;
+            }
+
+            .close-icon.hidden {
+                display: none;
+            }
+
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+            .overlay-menu {
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 15, 15, 0.65);
+                backdrop-filter: blur(15px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateY(-100%);
+                transition: transform 0.5s ease;
+                z-index: 4000;
+                overflow: hidden;
+                font-family: 'Poppins', sans-serif;
+            }
+
+
+            .overlay-menu.open {
+                transform: translateY(0);
+            }
+
+            .overlay-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .overlay-header h2 {
+                margin: 0;
+                font-size: 24px;
+                font-weight: bold;
+                color: rgb(255, 255, 255);
+            }
+
+            .close-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            .overlay-body {
+                width: 100%;
+                max-width: 500px;
+                padding: 40px 20px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+                justify-content: flex-start;
+                /* сверху вниз */
+                height: 100%;
+                overflow-y: auto;
+                /* включаем скролл внутри */
+                scrollbar-width: thin;
+                /* красивый тонкий скролл (Firefox) */
+            }
+
+            .overlay-body::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .overlay-body::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+            }
+
+            .overlay-logo .logo-text {
+                font-family: 'Georgia', serif;
+                font-size: 2rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+
+                background: #ffffff;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                text-align: center;
+                animation: fadeIn 1s ease;
+            }
+
 
             .header-container {
                 flex-direction: row;
@@ -893,11 +935,6 @@
                 justify-content: space-between;
                 align-items: center;
                 padding: 10px 15px;
-            }
-
-            body {
-                padding-top: 50px;
-                /* уменьшили отступ сверху */
             }
 
             .section .hero {
@@ -982,6 +1019,64 @@
                 width: 100%;
             }
 
+            .lang-switch a {
+                color: #fff;
+                font-size: 1rem;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                transition: color 0.3s ease;
+            }
+
+            .lang-switch a:hover {
+                color: #9ecbff;
+            }
+
+            .lang-switch img {
+                width: 20px;
+                border-radius: 3px;
+            }
+
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                /* выравнивание по центру */
+                gap: 20px;
+                width: 100%;
+                /* чтобы блок тянулся на всю ширину */
+                margin-top: 20px;
+            }
+
+            .social-icons a img {
+                width: 28px;
+                height: 28px;
+                filter: invert(1);
+                transition: transform 0.3s ease;
+            }
+
+            .social-icons a:hover img {
+                transform: scale(1.2);
+            }
+
+            /* Анимация */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            /* Запрет скролла фона при открытом меню */
+            body.menu-open {
+                overflow: hidden;
+            }
+
             .nav-center {
                 flex-direction: column;
                 gap: 15px;
@@ -1032,11 +1127,6 @@
         }
 
         @media (max-width: 375px) {
-            body {
-                padding-top: 50px;
-                /* увеличиваем ещё чуть-чуть */
-            }
-
             .section .hero {
                 padding: 110px 15px 60px;
                 /* уменьшили верхний отступ */
@@ -1081,10 +1171,6 @@
                 height: 28px;
             }
 
-            .login-button {
-                font-size: 0.85rem;
-                padding: 5px 12px;
-            }
 
             .nav-center a {
                 font-size: 0.9rem;
@@ -1139,6 +1225,62 @@
 
 
 <body>
+    <!-- Оверлей меню -->
+    <div class="overlay-menu" id="overlay-menu">
+
+        <div class="overlay-body">
+            <div class="overlay-logo">
+                <div class="logo-text">Rönesans Danışmanlık</div>
+            </div>
+
+            <!-- Навигация -->
+            <nav class="menu-links">
+                <a href="index-ru.html">Главная</a>
+                <a href="about-ru.html">О тесте</a>
+                <a href="aboutme-ru.html">Обо мне</a>
+                <a href="blog-ru.html">Блог</a>
+                <a href="payments-ru.html">Оплата</a>
+                <a href="privacy-ru.html">Политика конфиденциальности</a>
+                <a href="index-ru.html">Отзывы о нас</a>
+                <a href="index-ru.html">Контакты</a>
+
+            </nav>
+            <div class="overlay-footer">
+                <!-- Переключатель языков -->
+                <div class="lang-switch">
+                    <a href="index-ru.html"><img src="https://flagcdn.com/w20/ru.png" alt="Рус"> Рус</a>
+                    <a href="index-en.html"><img src="https://flagcdn.com/w20/gb.png" alt="Eng"> Eng</a>
+                    <a href="index.html"><img src="https://flagcdn.com/w20/tr.png" alt="Türkçe"> Türkçe</a>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="https://wa.me/71234567890" target="_blank" aria-label="WhatsApp">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg" alt="WhatsApp">
+                </a>
+                <a href="https://t.me/yourchannel" target="_blank" aria-label="Telegram">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram">
+                </a>
+                <a href="https://twitter.com/yourpage" target="_blank" aria-label="Twitter">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Бургер (SVG) -->
+    <div class="burger-btn" id="burger-btn" aria-label="Открыть или закрыть меню">
+        <svg class="burger-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="7" x2="20" y2="7" stroke="white" stroke-width="2" stroke-linecap="round" />
+            <line x1="8" y1="12" x2="20" y2="12" stroke="white" stroke-width="2" stroke-linecap="round" />
+            <line x1="12" y1="17" x2="20" y2="17" stroke="white" stroke-width="2" stroke-linecap="round" />
+        </svg>
+
+        <svg class="close-icon hidden" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <line x1="6" y1="6" x2="18" y2="18" stroke="white" stroke-width="2" stroke-linecap="round" />
+            <line x1="6" y1="18" x2="18" y2="6" stroke="white" stroke-width="2" stroke-linecap="round" />
+        </svg>
+    </div>
     <header>
         <div class="header-container">
             <div class="logo">Rönesans Danışmanlık</div>
@@ -1146,38 +1288,14 @@
                 <a href="index-ru.html">Главная</a>
                 <a href="about-ru.html">О тесте</a>
                 <a href="aboutme-ru.html">Обо мне</a>
-                <a href="#blog">Блог</a>
+                <a href="blog-ru.html">Блог</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
                 <a href="index-ru.html" data-lang="ru">Рус</a>
                 <a href="index-en.html" data-lang="en">Eng</a>
                 <a href="index.html" data-lang="tr">Türkçe</a>
-                <a href="/login" class="login-button">
-                    <svg class="door-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path
-                            d="M14.5 12a.75.75 0 0 1 .75-.75h4.69l-1.22-1.22a.75.75 0 1 1 1.06-1.06l2.75 2.75a.75.75 0 0 1 0 1.06l-2.75 2.75a.75.75 0 1 1-1.06-1.06l1.22-1.22H15.25A.75.75 0 0 1 14.5 12z" />
-                        <path
-                            d="M3 3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0V4H5v16h8v-2a1 1 0 1 1 2 0v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V3z" />
-                    </svg>
-                    Вход
-                </a>
             </div>
-            <button id="burgerBtn" class="burger-btn" aria-label="Открыть меню">
-                <span></span><span></span><span></span>
-            </button>
         </div>
-        <div id="overlay" class="overlay"></div>
-
-        <!-- ====== МОБИЛЬНОЕ МЕНЮ ====== -->
-        <nav id="mobileMenu" class="mobile-menu" aria-hidden="true">
-            <ul>
-                <li><a href="index-ru.html">Главная</a></li>
-                <li><a href="about-ru.html">О тесте</a></li>
-                <li><a href="aboutme-ru.html">Обо мне</a></li>
-                <li><a href="#blog">Блог</a></li>
-            </ul>
-        </nav>
     </header>
 
     <section class="section">
@@ -1185,8 +1303,9 @@
             <div class="hero-content">
                 <h1>Узнайте, кто вы на самом деле — профессиональный разбор личности по тесту MMPI.</h1>
                 <p><strong>Глубокий психологический анализ личности.</strong><br>
-                    На основе самого точного в мире теста MMPI — используется в спецслужбах, медицине и HR. Вас разберут
-                    по полочкам — профессионально, конфиденциально и без осуждения.
+                    На основе одного из самых точных тестов личности MMPI — применяется в психологии, медицине и
+                    карьерном консультировании. Вас разберут по полочкам — профессионально, конфиденциально и без
+                    осуждения.
                 </p>
                 <a href="mmpi-test-ru.html" class="hero-btn">Пройти тест и получить анализ</a>
                 <div class="features">
@@ -1214,7 +1333,8 @@
                     <div class="underline"></div>
                     <p>
                         Наш подход — не про ярлыки и медицинские заключения. Мы бережно расшифровываем ваш
-                        психологический профиль, чтобы вы увидели свои сильные стороны, уязвимости и скрытые ресурсы.
+                        психологический профиль, чтобы вы увидели свои сильные стороны, уязвимости и скрытые
+                        ресурсы.
                         Это путь к осознанности, а не к «диагнозу».
                     </p>
                 </div>
@@ -1242,7 +1362,8 @@
                     <div class="advantage-text">
                         <h3>Научно подтверждён</h3>
                         <p>
-                            MMPI — это один из самых надёжных и валидных психологических тестов, разработанный в США и
+                            MMPI — это один из самых надёжных и валидных психологических тестов, разработанный в США
+                            и
                             применяемый более 70 лет.
                             Он используется в клиниках, научных исследованиях, при отборе в органы госбезопасности и
                             крупные компании по всему миру.
@@ -1259,9 +1380,11 @@
                     <div class="advantage-text">
                         <h3>Невозможно обмануть</h3>
                         <p>
-                            Тест построен таким образом, что выявляет реальные психологические особенности, даже если
+                            Тест построен таким образом, что выявляет реальные психологические особенности, даже
+                            если
                             человек пытается приукрасить ответы.
-                            Благодаря встроенным шкалам лжи, искажения и неискренности — результат показывает, какой вы
+                            Благодаря встроенным шкалам лжи, искажения и неискренности — результат показывает, какой
+                            вы
                             на самом деле, а не каким хотите казаться.
                         </p>
                     </div>
@@ -1299,7 +1422,8 @@
                     </div>
                     <div class="mmpi-text expanded">
                         <h3>Оплата и доступ к тесту</h3>
-                        <p>Вы нажимаете на кнопку, оплачиваете прохождение, и сразу получаете ссылку на MMPI-тест.</p>
+                        <p>Вы нажимаете на кнопку, оплачиваете прохождение, и сразу получаете ссылку на MMPI-тест.
+                        </p>
                     </div>
                 </div>
                 <div class="mmpi-step">
@@ -1312,7 +1436,8 @@
                     </div>
                     <div class="mmpi-text expanded">
                         <h3>Проходите тест в удобное время</h3>
-                        <p>Вы отвечаете на вопросы онлайн. Это займёт примерно 40–60 минут. Главное — честно и спокойно.
+                        <p>Вы отвечаете на вопросы онлайн. Это займёт примерно 40–60 минут. Главное — честно и
+                            спокойно.
                         </p>
                     </div>
                 </div>
@@ -1359,7 +1484,8 @@
                         <div class="testimonial-info">
                             <h3>Daniel Visser</h3>
                             <p class="job">Project Manager at <span>Pixels</span></p>
-                            <p class="text">The principal element of Suprematism in painting, as in architecture, is its
+                            <p class="text">The principal element of Suprematism in painting, as in architecture, is
+                                its
                                 liberation from all social or materialist tendencies.</p>
                         </div>
                     </div>
@@ -1368,7 +1494,8 @@
                         <div class="testimonial-info">
                             <h3>Synthia Smyth</h3>
                             <p class="job">Editor-in-chief at <span>Pixels</span></p>
-                            <p class="text">We were just building stuff 'cause we thought it was cool. Someone is gonna
+                            <p class="text">We were just building stuff 'cause we thought it was cool. Someone is
+                                gonna
                                 build this. Someone is gonna build something for everyone.</p>
                         </div>
                     </div>
@@ -1377,7 +1504,8 @@
                         <div class="testimonial-info">
                             <h3>Лена Королёва</h3>
                             <p class="job">Психолог</p>
-                            <p class="text">MMPI помог мне понять себя гораздо глубже. Результаты были неожиданными, но
+                            <p class="text">MMPI помог мне понять себя гораздо глубже. Результаты были неожиданными,
+                                но
                                 очень точными.</p>
                         </div>
                     </div>
@@ -1395,7 +1523,8 @@
                         <div class="testimonial-info">
                             <h3>Алексей Михайлов</h3>
                             <p class="job">Предприниматель</p>
-                            <p class="text">Очень подробный анализ. Не просто цифры — реальное понимание моей личности.
+                            <p class="text">Очень подробный анализ. Не просто цифры — реальное понимание моей
+                                личности.
                             </p>
                         </div>
                     </div>
@@ -1411,7 +1540,7 @@
                 <p>Пишите — мы действительно любим общаться с нашими клиентами.</p>
                 <p><strong>+7 123 456 7890</strong></p>
                 <p><a href="mailto:hello@example.com">hello@example.com</a></p>
-                <p>ул. Дудулу, д. 22, Турция</p>
+                <p>Истамбул/Туркция</p>
                 <div class="social-icons">
                     <a href="#" aria-label="X / Twitter" target="_blank">
                         <svg width="36" height="36" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1453,33 +1582,22 @@
             </div>
             <div class="footer-links">
                 <div class="footer-col">
-                    <a href="#">Главная</a>
-                    <a href="#">Тур</a>
-                    <a href="#">Каталог</a>
-                    <a href="#">Цены</a>
+                    <a href="index-ru.html">Главная</a>
+                    <a href="about-ru.html">О тесте</a>
+                    <a href="aboutme-ru.html">Обо мне</a>
+                    <a href="#blog">Блог</a>
                 </div>
                 <div class="footer-col">
-                    <a href="#">Маркет</a>
-                    <a href="#">Услуги</a>
-                    <a href="#">Исследовать</a>
-                    <a href="#">Подкаст</a>
-                </div>
-                <div class="footer-col">
-                    <a href="#">FAQ</a>
-                    <a href="#">Отзывы</a>
-                    <a href="#">Контакты</a>
-                    <a href="#">Карьера</a>
-                </div>
-                <div class="footer-col">
-                    <a href="#">Партнеры</a>
-                    <a href="#">GDPR</a>
-                    <a href="#">Политика конфиденциальности</a>
+                    <a href="delivery.html">Оплата</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="reviews.html">Отзывы о нас</a>
+                    <a href="contacts.html">Контакты</a>
                 </div>
             </div>
             <div class="footer-contact">
                 <p><strong>+7 123 456 7890</strong></p>
                 <p><a href="mailto:hello@example.com">hello@example.com</a></p>
-                <p>ул. Дудулу, д. 22, Турция</p>
+                <p>Истамбул/Туркция</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Facebook" target="_blank">
                         <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
@@ -1511,54 +1629,18 @@
     <script src="main.js"></script>
     <script src="testimonials-carousel.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const burger = document.getElementById('burgerBtn');
-            const mobile = document.getElementById('mobileMenu');
-            const overlay = document.getElementById('overlay');
+        const burgerBtn = document.getElementById('burger-btn');
+        const overlayMenu = document.getElementById('overlay-menu');
+        const burgerIcon = burgerBtn.querySelector('.burger-icon');
+        const closeIcon = burgerBtn.querySelector('.close-icon');
 
-            console.log('menu init:', { burger, mobile, overlay });
+        burgerBtn.addEventListener('click', () => {
+            const isOpen = overlayMenu.classList.toggle('open');
+            burgerBtn.classList.toggle('active', isOpen); // фон меняем
 
-            if (!burger || !mobile || !overlay) {
-                console.error('one or more elements missing: burger/mobile/overlay');
-                return;
-            }
-
-            function openMenu() {
-                burger.classList.add('active');
-                mobile.classList.add('active');   // совпадает с твоим CSS #mobileMenu.active
-                overlay.classList.add('active');  // совпадает с твоим CSS #overlay.active
-                document.body.style.overflow = 'hidden';
-                console.log('menu opened');
-            }
-
-            function closeMenu() {
-                burger.classList.remove('active');
-                mobile.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-                console.log('menu closed');
-            }
-
-            burger.addEventListener('click', (e) => {
-                // если кнопка внутри формы — предотвратим submit
-                if (e) e.preventDefault();
-                const isOpen = mobile.classList.contains('active');
-                console.log('burger clicked, isOpen=', isOpen);
-                isOpen ? closeMenu() : openMenu();
-            });
-
-            overlay.addEventListener('click', closeMenu);
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobile.classList.contains('active')) closeMenu();
-            });
-
-            // если окно стало большим (десктоп) — автоматически закрывать меню
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 900 && mobile.classList.contains('active')) {
-                    closeMenu();
-                }
-            });
+            // переключаем иконки
+            burgerIcon.style.display = isOpen ? 'none' : 'block';
+            closeIcon.style.display = isOpen ? 'block' : 'none';
         });
     </script>
 

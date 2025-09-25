@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Minnesota Çok Yönlü Kişilik Envanteri (MMPI) — kişilik analizi, tarihçesi, özellikleri, talimatlar.">
-    <title>MMPI Testi Hakkında</title>
+        content="Миннесотский многофазный личностный опросник (MMPI) — анализ личности, история, особенности, инструкции.">
+    <title>О тесте MMPI</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;700&display=swap"
         rel="stylesheet">
@@ -23,9 +23,10 @@
             color: #333;
             background: #fff;
             line-height: 1.6;
+            padding-top: 70px;
         }
 
-        /* Header */
+        /* Хедер */
         header {
             position: fixed;
             top: 0;
@@ -176,7 +177,7 @@
             top: 15px;
         }
 
-        /* Footer */
+        /* Футер */
         .site-footer {
             background: rgb(17, 17, 17);
             color: #fff;
@@ -291,6 +292,10 @@
 
         /* Адаптив */
         @media(max-width:768px) {
+            body {
+                padding-top: 0px;
+            }
+
             header {
                 position: relative;
                 width: 100%;
@@ -683,7 +688,7 @@
             }
         }
 
-       
+
 
         /* Responsive для экранов до 375px */
         @media (max-width: 375px) {
@@ -851,7 +856,10 @@
     </script>
 </head>
 
-<body class="font-inter bg-white text-gray-800">
+
+
+<body class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 text-gray-800 font-sans">
+
     <!-- Оверлей меню -->
     <div class="overlay-menu" id="overlay-menu">
 
@@ -867,11 +875,10 @@
                 <a href="aboutme-tr.html">Hakkımda</a>
                 <a href="blog-tr.html">Blog</a>
                 <a href="payments-tr.html">Ödeme</a>
-                <a href="privacy.html">Gizlilik Politikası</a>
+                <a href="privacy-tr.html">Gizlilik Politikası</a>
                 <a href="index.html">Yorumlar</a>
                 <a href="index.html">İletişim</a>
             </nav>
-
             <div class="overlay-footer">
                 <!-- Переключатель языков -->
                 <div class="lang-switch">
@@ -914,227 +921,113 @@
             <nav class="nav-center">
                 <a href="index.html">Ana Sayfa</a>
                 <a href="about-tr.html">Test Hakkında</a>
-                <a href="aboutme-tr.html">Hakkımda</a>
-                <a href="blog">Blog</a>
+                <a href="#about">Hakkımda</a>
+                <a href="#blog">Blog</a>
             </nav>
             <div class="lang-switch" id="langSwitch">
-                <a href="index-ru.html" data-lang="ru">Рус</a>
-                <a href="index-en.html" data-lang="en">Eng</a>
                 <a href="index.html" data-lang="tr" class="active">Türkçe</a>
+                <a href="index-en.html" data-lang="en">Eng</a>
+                <a href="index-ru.html" data-lang="ru">Рус</a>
             </div>
-
         </div>
 
     </header>
 
-    <main class="container mx-auto px-4 py-24">
-        <!-- HERO -->
-        <section id="discoverYourselfSection"
-            class="bg-gradient-to-br from-blue-50 via-white to-indigo-100 rounded-3xl shadow-xl p-10 mb-16 transition-all duration-500">
-            <h1 id="discoverYourselfTitle"
-                class="text-5xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-4 animate-fade-in">
-                Gerçek Kendinizi Keşfedin
-            </h1>
-            <h2 id="discoverYourselfSubtitle"
-                class="text-2xl font-semibold text-center text-gray-800 mb-6 animate-fade-in delay-100">
-                En doğru ve güvenilir kişilik testini geçin
-            </h2>
-            <p id="discoverYourselfDescription"
-                class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-10 animate-fade-in delay-200">
-                Siz, yalnızca size özgü kişisel özelliklere sahip benzersiz bir bireysiniz. Bu özelliklerden bazıları
-                daha
-                fazlasını başarmanıza yardımcı olurken, diğerleri potansiyelinizi ortaya çıkarmanızı engeller.
-            </p>
+    <!-- Header -->
+    <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-10 shadow-lg">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl font-extrabold mb-2">Paketler ve Ödeme</h1>
+            <p class="text-blue-100 text-lg">Kendinize en uygun MMPI test paketini seçin</p>
+        </div>
+    </section>
 
-            <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                Testimiz size şunları sağlayacak:
-            </h3>
+    <!-- Tariffs -->
+    <main class="container mx-auto px-6 py-16">
+        <div class="grid gap-8 md:grid-cols-3">
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div id="benefit1"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">01.</span>
-                    <p class="text-gray-700">Sorunlu alanlarınızı öğrenin ve mutluluk, özgüven ve dayanıklılık
-                        seviyenizi
-                        keşfedin.</p>
-                </div>
-                <div id="benefit2"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">02.</span>
-                    <p class="text-gray-700">Kişisel özelliklerinizin diğer insanlarla ilişkilerinizi nasıl etkilediğini
-                        anlayın.</p>
-                </div>
-                <div id="benefit3"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                    <span class="block text-3xl font-bold text-primary mb-3">03.</span>
-                    <p class="text-gray-700">Güçlü yönlerinizi öğrenin ve daha fazlasını başarmak için bunları kullanın.
-                    </p>
-                </div>
-            </div>
-
-            <h3 id="discoverYourselfInstructionsTitle" class="text-2xl font-bold text-center mt-16 mb-6 text-gray-800">
-                Test nasıl doldurulur:
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div id="testInstruction1"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">01.</span>
-                    <p class="text-gray-700">Her soruyu anlayın. Sonuç almak için tüm soruları cevaplayın.</p>
-                </div>
-                <div id="testInstruction2"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">02.</span>
-                    <p class="text-gray-700">Hızlı cevap verin. Sorular üzerinde fazla durmayın.</p>
-                </div>
-                <div id="testInstruction3"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">03.</span>
-                    <p class="text-gray-700">Mevcut durumunuza göre cevap verin, geçmişe değil.</p>
-                </div>
-                <div id="testInstruction4"
-                    class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                    <span class="block text-2xl font-bold text-primary mb-2">04.</span>
-                    <p class="text-gray-700">"Belki" cevaplarını azaltın — daha az "Belki", daha yüksek doğruluk.</p>
-                </div>
-            </div>
-
-            <div class="mt-10 text-center">
-                <a href="mmpi-test.html" id="startTestButtonHero"
-                    class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-play mr-2"></i> Testi Başlat
-                </a>
-            </div>
-        </section>
-
-        <!-- ABOUT -->
-        <section id="aboutSection"
-            class="relative bg-gradient-to-br from-blue-50 via-white to-indigo-100 p-10 rounded-3xl shadow-xl mb-16 overflow-hidden">
-
-            <!-- SVG волны фоном -->
-            <div class="absolute inset-0 pointer-events-none z-0">
-                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1440 320" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#f3f4f6" fill-opacity="0.3"
-                        d="M0,160L60,176C120,192,240,224,360,240C480,256,600,256,720,240C840,224,960,192,1080,165.3C1200,139,1320,117,1380,128L1440,139L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
-                    </path>
-                </svg>
-            </div>
-
-            <div class="relative z-10">
-                <h1 id="aboutTitle"
-                    class="text-4xl font-extrabold text-center bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text mb-6 animate-fade-in">
-                    MMPI Testi Hakkında
-                </h1>
-
-                <p id="aboutDescription"
-                    class="text-gray-700 text-lg text-center max-w-3xl mx-auto mb-8 animate-fade-in delay-100">
-                    Minnesota Çok Yönlü Kişilik Envanteri (MMPI), kişiliği değerlendirmek ve psikopatolojiyi tespit
-                    etmek
-                    için kullanılan bir psikolojik testtir. Klinik psikoloji, psikiyatri ve insan kaynakları alanlarında
-                    kullanılır.
-                </p>
-
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Testin Tarihçesi
-                </h3>
-                <p id="aboutHistory"
-                    class="text-gray-700 text-lg text-center w-full mx-auto mb-8 animate-fade-in delay-100">
-                    İlk olarak 1943 yılında Stark Hathaway ve J. Charnley McKinley tarafından yayınlandı. 566 ifadeden
-                    oluşur. Cevaplar: "Evet", "Hayır", "Bilmiyorum". Duyguları, tutumları ve sağlığı kapsar. 1930'larda
-                    psikolojik teşhis ciddi sorunlarla karşı karşıyaydı. O dönemin psikiyatristleri ve psikologları,
-                    çoğu
-                    zaman uzmanların deneyimine bağlı olan ve güvenilir olmayan klinik görüşmelere dayanıyordu. Objektif
-                    bir şekilde kişilik özelliklerini değerlendirebilecek ve psikopatolojik durumları tespit edebilecek
-                    evrensel bir araç mevcut değildi. Bu bağlamda, Minnesota Üniversitesi'nde klinik psikolog Stark
-                    Hathaway ve nöropsikiyatrist J. Charnley McKinley, yeni bir test üzerinde çalışmaya başladı.
-                    Amaçları iddialıydı: yalnızca psikiyatrik bozuklukları teşhis etmekle kalmayıp aynı zamanda bireysel
-                    kişilik özelliklerini de dikkate alan standart bir anket oluşturmak. O dönemin diğer testlerinden
-                    farklı olarak, genellikle tek bir yönü (örneğin depresyon) ele alan testlerin aksine, MMPI geniş bir
-                    psikolojik durum yelpazesini kapsamalıydı. Hathaway ve McKinley, testin teorik varsayımlara değil,
-                    verilere dayalı ampirik bir yapıda olmasını istedi.
-                </p>
-
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Testin Özellikleri
-                </h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                    <!-- Özellik 1 -->
-                    <div id="feature1"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">🌐</span> Çok Dilli Destek
-                        </h3>
-                        <p class="text-gray-700 mt-2">Türkçe, İngilizce, Rusça arayüz.</p>
-                    </div>
-
-                    <!-- Özellik 2 -->
-                    <div id="feature2"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">♂️</span> Cinsiyet Faktörü
-                        </h3>
-                        <p class="text-gray-700 mt-2">Erkekler ve kadınlar için farklı formlar.</p>
-                    </div>
-
-                    <!-- Özellik 3 -->
-                    <div id="feature3"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">📊</span> 10 Ana Ölçek
-                        </h3>
-                        <p class="text-gray-700 mt-2">Depresyon, paranoya, içe dönüklük vb. değerlendirme.</p>
-                    </div>
-
-                    <!-- Özellik 4 -->
-                    <div id="feature4"
-                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1">
-                        <h3 class="text-lg font-semibold text-primary flex items-center gap-3">
-                            <span class="text-2xl">📈</span> Geçerlilik Ölçekleri
-                        </h3>
-                        <p class="text-gray-700 mt-2">L, F, K ölçekleri — güvenilirlik ve koruma.</p>
-                    </div>
-                </div>
-
-                <h3 id="discoverYourselfBenefitsTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    Test Nasıl Geçilir
-                </h3>
-
-                <ol class="list-decimal list-inside text-gray-700 text-lg space-y-2 mb-10">
-                    <li id="instruction1">Formu doldurun: cinsiyet, doğum tarihi, eğitim.</li>
-                    <li id="instruction2">Dürüstçe seçin: Evet / Hayır / Bilmiyorum.</li>
-                    <li id="instruction3">Tamamladıktan sonra T-skorları ve grafiği alın.</li>
-                </ol>
-
-                <h3 id="testImportantTitle" class="text-2xl font-bold text-center text-gray-800 mb-8">
-                    MİNNESOTA ÇOK YÖNLÜ KİŞİLİK ENVANTERİ (MMPI) HAKKINDA ÖNEMLİ BİLGİLER
-                </h3>
-                <p id="testImportantInfo" class="text-gray-700 text-lg w-full mx-auto mb-8 animate-fade-in delay-100">
-                    <strong>Testin ideal doldurulma süresi 90 dakikadır.</strong><br><br>
-                    Her soruyu okuyarak KENDİ DURUMUNUZA GÖRE DOĞRU YA DA YANLIŞ olup olmadığına karar veriniz. Sorulara
-                    vereceğiniz cevap sizin durumunuza göre doğru veya yanlış olmalıdır. Kendiniz hakkında kendi
-                    kanaatinizi bildireceğinizi unutmayınız. Mümkünse bütün soruları cevaplandırmaya çalışınız. Boş
-                    bıraktığınız cevap sayısının 10’u geçmemesine dikkat ediniz, aksi halde test geçerliliği
-                    sağlanamamış
-                    olacaktır.<br><br>
-                    <strong>Test Hakkında Önemli Bilgilendirme:</strong><br>
-                    • Bu test modern psikolojinin ve geleneksel insan modellerinin özgün bir sentezine dayanarak
-                    hazırlanmış, geçerlilik ve güvenilirliği dünyaca kabul edilmiş bir testtir.<br>
-                    • Testin kişiyi yansıtabilme gücü, testin uygulanmasında gösterilen objektifliğe, sorulara verilen
-                    cevapların samimiyetine ve kişinin kendi hakkındaki farkındalık düzeyine bağlıdır. Tutarsız cevaplar
-                    verilmesi durumunda test geçerliliği sağlanamayarak geçersiz profil değerlendirmesi yapılır.<br>
-                    • Bu testten elde edilecek bilgiler kişinin tutumlarını, yaşamı algılayış biçimini, iç dünyasını,
-                    davranışlarının altında yatan dinamikleri gösteren bir harita niteliğindedir, arazinin kendisi
-                    değildir.
-                </p>
-
-                <div class="text-center">
-                    <a href="mmpi-test.html" id="startTestButton"
-                        class="inline-block bg-primary hover:bg-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                        <i class="fas fa-play mr-2"></i> Teste Başla
+            <!-- Plan 1 -->
+            <div
+                class="bg-white rounded-3xl shadow-xl overflow-hidden border hover:shadow-2xl hover:-translate-y-1 transition transform">
+                <div class="p-8 text-center">
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Temel</h2>
+                    <p class="text-gray-600 mb-6">MMPI ile temel kişilik analizi isteyenler için uygundur.</p>
+                    <p class="text-4xl font-extrabold text-indigo-700 mb-6">$100</p>
+                    <ul class="space-y-2 text-gray-700 text-left mb-8">
+                        <li>✔ Tam MMPI Testi (566 soru)</li>
+                        <li>✔ Kişisel profil</li>
+                        <li>✔ 20 dakikalık danışmanlık</li>
+                    </ul>
+                    <a href="#payment"
+                        class="inline-block bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow hover:opacity-90 transition">
+                        Öde
                     </a>
                 </div>
             </div>
+
+            <!-- Plan 2 -->
+            <div
+                class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-indigo-600 hover:shadow-2xl hover:-translate-y-1 transition transform">
+                <div class="p-8 text-center">
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Standart</h2>
+                    <p class="text-gray-600 mb-6">Daha ayrıntılı bir analiz için en iyi seçenek.</p>
+                    <p class="text-4xl font-extrabold text-indigo-700 mb-6">$150</p>
+                    <ul class="space-y-2 text-gray-700 text-left mb-8">
+                        <li>✔ Tam MMPI Testi (566 soru)</li>
+                        <li>✔ Kişisel profil ve grafik</li>
+                        <li>✔ 40 dakikalık danışmanlık</li>
+                        <li>✔ Gelişim için öneriler</li>
+                    </ul>
+                    <a href="#payment"
+                        class="inline-block bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow hover:opacity-90 transition">
+                        Öde
+                    </a>
+                </div>
+            </div>
+
+            <!-- Plan 3 -->
+            <div
+                class="bg-white rounded-3xl shadow-xl overflow-hidden border hover:shadow-2xl hover:-translate-y-1 transition transform">
+                <div class="p-8 text-center">
+                    <h2 class="text-2xl font-bold text-indigo-700 mb-4">Premium</h2>
+                    <p class="text-gray-600 mb-6">Derin analiz ve kişisel rehberlik için en kapsamlı paket.</p>
+                    <p class="text-4xl font-extrabold text-indigo-700 mb-6">$200</p>
+                    <ul class="space-y-2 text-gray-700 text-left mb-8">
+                        <li>✔ Tam MMPI Testi (566 soru)</li>
+                        <li>✔ Ayrıntılı profil + genişletilmiş rapor</li>
+                        <li>✔ 60 dakikalık danışmanlık</li>
+                        <li>✔ Kişisel öneriler ve takip</li>
+                    </ul>
+                    <a href="#payment"
+                        class="inline-block bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow hover:opacity-90 transition">
+                        Öde
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Payment Info -->
+        <section id="payment" class="mt-20 bg-white rounded-3xl shadow-lg p-10">
+            <h2 class="text-3xl font-extrabold text-indigo-700 mb-6 text-center">Garanti Bankası ile Ödeme</h2>
+            <p class="text-gray-700 mb-6 text-center">
+                Teste erişiminizi onaylamak için lütfen seçtiğiniz tutarı banka hesabımıza transfer edin.
+            </p>
+
+            <div class="bg-gray-50 p-6 rounded-2xl shadow-inner max-w-2xl mx-auto">
+                <ul class="text-gray-800 space-y-3">
+                    <li><strong>Banka:</strong> Garanti Bankası</li>
+                    <li><strong>Alıcı:</strong> Rönesans Danışmanlık</li>
+                    <li><strong>IBAN:</strong> TR00 0000 0000 0000 0000 0000 00</li>
+                    <li><strong>SWIFT:</strong> TGBATRISXXX</li>
+                    <li><strong>Ödeme açıklaması:</strong> MMPI Test + Adınız Soyadınız</li>
+                </ul>
+            </div>
+
+            <p class="text-center text-gray-600 mt-6">
+                Ödemeden sonra lütfen <strong>WhatsApp veya Telegram</strong> üzerinden bizimle iletişime geçin ve ödeme
+                makbuzunuzu gönderin.<br>
+                Psikolog size test erişimi sağlayacak ve danışmanlık için zaman belirleyecektir.
+            </p>
         </section>
     </main>
 
@@ -1151,7 +1044,7 @@
                     <a href="#">Fiyatlar</a>
                 </div>
                 <div class="footer-col">
-                    <a href="#">Market</a>
+                    <a href="#">Pazar</a>
                     <a href="#">Hizmetler</a>
                     <a href="#">Keşfet</a>
                     <a href="#">Podcast</a>
@@ -1164,14 +1057,14 @@
                 </div>
                 <div class="footer-col">
                     <a href="#">Ortaklar</a>
-                    <a href="#">GDPR</a>
+                    <a href="#">KVKK</a>
                     <a href="#">Gizlilik Politikası</a>
                 </div>
             </div>
             <div class="footer-contact">
                 <p><strong>+7 123 456 7890</strong></p>
                 <p><a href="mailto:hello@example.com">hello@example.com</a></p>
-                <p>Dudullu Cd. 22, Türkiye</p>
+                <p>Istanbul/Türkiye</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Facebook" target="_blank">
                         <svg width="36" height="36" viewBox="0 0 100 100" fill="none"
@@ -1201,7 +1094,6 @@
         </div>
     </footer>
     <script src="main.js"></script>
-    <script src="testimonials-carousel.js"></script>
 
     <script>
         const burgerBtn = document.getElementById('burger-btn');
