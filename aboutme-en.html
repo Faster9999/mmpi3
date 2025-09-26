@@ -192,8 +192,12 @@
         .hero-photo img {
             width: 100%;
             max-width: 400px;
+            height: auto;
+            /* сохраняем пропорции */
             border-radius: 20px;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            /* подрезает лишнее, если контейнер другой пропорции */
         }
 
         .hero-content {
@@ -359,6 +363,12 @@
 
         /* Адаптив */
         @media(max-width:768px) {
+            .hero-photo img {
+                max-width: 300px;
+                /* немного меньше для телефонов */
+                border-radius: 15px;
+            }
+
             header {
                 position: relative;
                 width: 100%;
@@ -751,7 +761,20 @@
             }
         }
 
-        
+        @media (max-width: 480px) {
+            .hero-photo {
+                flex: 1 1 100%;
+                margin-bottom: 20px;
+            }
+
+            .hero-photo img {
+                max-width: 90%;
+                /* почти на всю ширину экрана */
+                border-radius: 12px;
+            }
+        }
+
+
 
         @media (max-width: 375px) {
 
@@ -919,7 +942,7 @@
                 <a href="index.html" data-lang="tr">Türkçe</a>
             </div>
         </div>
-        
+
     </header>
     <main>
         <!-- Hero Section -->
