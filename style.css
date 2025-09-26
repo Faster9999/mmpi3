@@ -1307,11 +1307,6 @@ button:hover {
 
 /* Адаптив */
 @media(max-width:768px) {
-    .nav-center a {
-        font-size: 1.2rem;
-        padding: 12px 0;
-    }
-
 
 
 
@@ -1563,7 +1558,11 @@ button:hover {
     }
 
     .section .hero {
-        background-attachment: scroll;
+        height: auto;
+        min-height: 100vh;
+        padding: 90px 20px 60px;
+        /* уменьшили верхний отступ */
+        background-attachment: scroll !important;
     }
 
     .section .hero-content {
@@ -1720,6 +1719,11 @@ button:hover {
         top: 15px;
     }
 
+    .nav-center a {
+        font-size: 1.2rem;
+        padding: 12px 0;
+    }
+
     .logo {
         height: 35px;
     }
@@ -1747,9 +1751,7 @@ button:hover {
 
     /* Align content to center */
     #intro .test-form {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+        text-align: center;
         padding: 20px;
     }
 
@@ -1804,25 +1806,50 @@ button:hover {
     }
 }
 
-@media(max-width: 480px) {
-    .answer-btn {
-        width: 100%;
-        min-width: unset;
-        font-size: 1rem;
-        padding: 12px;
+@media(max-width: 360px) {
+    .section .hero-content h1 {
+        font-size: 1.6rem;
     }
 
-    .nav-center a {
-        font-size: 1rem;
-        padding: 10px 0;
+    .section .hero-content p {
+        font-size: 0.85rem;
     }
 
+    h1,
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
 
-    .test-form {
-        padding: 16px;
+    p,
+    .hero-content p {
+        font-size: 0.85rem;
     }
 }
 
+/* === Малые ноутбуки (1024px) === */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 2.4rem;
+    }
+}
+
+/* === Большие ноутбуки (1440px) === */
+@media (max-width: 1440px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* === Ультра большие экраны (4K, 2560px+) === */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .hero-content h1 {
+        font-size: 3.5rem;
+    }
+}
 
 @media (max-width: 375px) {
     #questionContainer {
@@ -1969,57 +1996,6 @@ button:hover {
         height: 20px;
     }
 }
-
-@media(max-width: 360px) {
-    .section .hero-content h1 {
-        font-size: 1.6rem;
-    }
-
-    .section .hero-content p {
-        font-size: 0.85rem;
-    }
-
-    h1,
-    .hero-content h1 {
-        font-size: 1.5rem;
-    }
-
-    p,
-    .hero-content p {
-        font-size: 0.85rem;
-    }
-
-    .answer-btn {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-}
-
-/* === Малые ноутбуки (1024px) === */
-@media (max-width: 1024px) {
-    .hero-content h1 {
-        font-size: 2.4rem;
-    }
-}
-
-/* === Большие ноутбуки (1440px) === */
-@media (max-width: 1440px) {
-    .container {
-        max-width: 1200px;
-    }
-}
-
-/* === Ультра большие экраны (4K, 2560px+) === */
-@media (min-width: 1920px) {
-    .container {
-        max-width: 1600px;
-    }
-
-    .hero-content h1 {
-        font-size: 3.5rem;
-    }
-}
-
 
 .menu-toggle {
     display: none;
