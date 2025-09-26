@@ -996,72 +996,73 @@ button:hover {
     min-height: calc(100vh - 100px);
     /* минимальная высота, учитывая шапку */
 }
+
 /* Отступы под шапкой */
 #paymentGate {
-  margin-top: 40px;
+    margin-top: 90px;
 }
 
 #intro {
-  margin-top: 60px;
+    margin-top: 60px;
 }
 
 /* Стили формы теста — отделяем от paymentGate */
 .test-form {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 24px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
 .test-form .form-title {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  font-weight: 700;
-  color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #2c3e50;
 }
 
 .test-form .form-group {
-  margin-bottom: 18px;
+    margin-bottom: 18px;
 }
 
 .test-form label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: #374151;
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #374151;
 }
 
 .test-form input,
 .test-form select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 1rem;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
 .test-form .error {
-  color: #dc2626;
-  font-size: 0.9rem;
-  margin-top: 4px;
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin-top: 4px;
 }
 
 .test-form .form-actions {
-  margin-top: 20px;
-  text-align: center;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .test-form .btn.primary {
-  background: linear-gradient(90deg, #2c66f9, #5b35d6);
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
+    background: linear-gradient(90deg, #2c66f9, #5b35d6);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
 }
 
 
@@ -1374,6 +1375,9 @@ button:hover {
 
 /* Адаптив */
 @media(max-width:768px) {
+    #paymentGate {
+        margin-top: 10px;
+    }
 
 
 
