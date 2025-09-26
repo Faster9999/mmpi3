@@ -943,6 +943,8 @@
                 padding: 90px 20px 60px;
                 /* уменьшили верхний отступ */
                 background-attachment: scroll;
+                background-size: cover;
+                background-position: center;
             }
 
             .section .hero-content {
@@ -985,8 +987,10 @@
                 justify-content: center;
             }
 
-            .mmpi-step {
+            .mmpi-step,
+            .advantage-item {
                 flex: 1 1 100%;
+                min-width: unset;
             }
 
             .contact-grid {
@@ -994,11 +998,11 @@
             }
 
             .section .hero-content h1 {
-                font-size: 2.2rem;
+                font-size: clamp(1.6rem, 4vw, 2.8rem);
             }
 
             .section .hero-content p {
-                font-size: 1rem;
+                font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             }
 
             .features {
@@ -1124,6 +1128,13 @@
 
         .menu-toggle {
             display: none;
+        }
+
+        @media (max-width: 500px) {
+            .testimonial-card {
+                width: 85%;
+                min-width: 260px;
+            }
         }
 
         @media (max-width: 375px) {

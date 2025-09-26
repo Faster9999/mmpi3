@@ -553,10 +553,11 @@ const norms = {
     '5': { M: 20.46, σ: 5.0 },
     '6': { M: 7.9, σ: 3.4 },
     '7': { M: 23.06, σ: 5.0 }, // Обновлено
-    '8': { M: 22, σ: 5.0 },
-    '9': { M: 17.0, σ: 4.06 },
-    '0': { M: 25, σ: 5 }
+    '8': { M: 21.96, σ: 5.0 },
+    '9': { M: 17, σ: 4.06 },
+    '0': { M: 17, σ: 4.06 }
 };
+
 
 function displayQuestion() {
     const t = translations[currentLanguage];
@@ -702,6 +703,8 @@ window.startTest = function () {
         error.classList.remove('visible');
         error.textContent = '';
     });
+
+
 
     const genderSelect = document.getElementById('gender');
     const birthDateInput = document.getElementById('birthDate');
